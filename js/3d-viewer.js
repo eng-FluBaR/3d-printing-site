@@ -25,7 +25,7 @@ function initThreeJS() {
 
     // Сцена
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xf0f0f0); // Светлосерен фон
+    scene.background = new THREE.Color(0xd4d4d4); // Мръсно сив фон
     // Премахнат fog за да няма промяна на контраст при zoom
     // scene.fog = new THREE.Fog(0xf0f0f0, 500, 5);
 
@@ -644,10 +644,11 @@ function updateModelColor(hexColor) {
     // Конвертиране на формата от строка к обикновено число
     let colorValue = hexColor;
     if (typeof hexColor === 'string') {
-        if (hexColor.startsWith('0x')) {
+        if (hexColor.startsWith('#')) {
+            // RGB hex формат (#RRGGBB)
+            colorValue = parseInt(hexColor.substring(1), 16);
+        } else if (hexColor.startsWith('0x')) {
             colorValue = parseInt(hexColor);
-        } else if (hexColor.startsWith('#')) {
-            colorValue = parseInt(hexColor.replace('#', ''), 16);
         }
     }
 
@@ -658,16 +659,19 @@ function updateModelColor(hexColor) {
     modelMaterial.metalness = 0.2;
     modelMaterial.roughness = 0.3;
     
-    // Маркиране на активния бутон
-    document.querySelectorAll('.color-buttons')[0].querySelectorAll('.color-btn').forEach(btn => {
-        btn.classList.remove('active');
-        const style = btn.getAttribute('style');
-        if (style && style.includes(toHexColor(colorValue))) {
-            btn.classList.add('active');
-        }
-    });
+    // Обновяване на display полетата
+    const hexString = '#' + colorValue.toString(16).padStart(6, '0').toUpperCase();
+    const picker = document.getElementById('modelColorPicker');
+    const hexInput = document.getElementById('modelColorHex');
+    if (picker) picker.value = hexString;
+    if (hexInput) hexInput.value = hexString;
     
-    console.log('Цвят на модела обновен:', hexColor);
+    console.log('Цвят на модела обновен:', hexString);
+}
+
+// Обновяване на цвета от hex input
+function updateModelColorHex(hexString) {
+    updateModelColor(hexString);
 }
 
 // Обновяване на цвета на фона
@@ -690,15 +694,6 @@ function updateBackgroundColor(hexColor) {
     if (scene.fog) {
         scene.fog.color.set(color);
     }
-    
-    // Маркиране на активния бутон
-    document.querySelectorAll('.color-buttons')[1].querySelectorAll('.color-btn').forEach(btn => {
-        btn.classList.remove('active');
-        const style = btn.getAttribute('style');
-        if (style && style.includes(toHexColor(colorValue))) {
-            btn.classList.add('active');
-        }
-    });
     
     console.log('Цвят на фона обновен:', hexColor);
 }
@@ -822,7 +817,53 @@ function clearFile() {
     resetVisualizationSettings();
 }
 
-// Функции за падащо меню на изглед
+// Функция за премахване на файл
+function removeFile() {
+    clearFile();
+    // Опционално - показване на съобщение за успешно премахване
+    console.log('Файлът е премахнат');
+}
+
+// Функция за fullscreen режим
+function toggleFullscreen() {
+    const viewerContainer = document.querySelector('.viewer-container');
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+    const body = document.body;
+    
+    if (viewerContainer) {
+        viewerContainer.classList.toggle('fullscreen');
+        body.classList.toggle('fullscreen-active');
+        
+        if (viewerContainer.classList.contains('fullscreen')) {
+            fullscreenBtn.title = 'Обыкновен режим';
+        } else {
+            fullscreenBtn.title = 'По-голям экран';
+        }
+        
+        // Прерасчет рендера при поменя на големина
+        if (renderer && camera && modelViewer) {
+            const container = document.getElementById('modelViewer');
+            if (container) {
+                const width = container.clientWidth;
+                const height = container.clientHeight;
+                
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+                renderer.setSize(width, height);
+            }
+        }
+    }
+}
+
+// Отворяне токсс ESC клавиш
+дocument.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        const viewerContainer = document.querySelector('.viewer-container');
+        if (viewerContainer && viewerContainer.classList.contains('fullscreen')) {
+            toggleFullscreen();
+        }
+    }
+});
 function toggleViewMenu() {
     const dropdown = document.getElementById('viewDropdown');
     if (dropdown) {

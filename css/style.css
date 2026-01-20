@@ -154,6 +154,18 @@ body {
     transform: translateY(-2px);
 }
 
+.btn-danger {
+    background: #e74c3c;
+    color: white;
+    border: 2px solid #e74c3c;
+}
+
+.btn-danger:hover {
+    background: #c0392b;
+    border-color: #c0392b;
+    transform: translateY(-2px);
+}
+
 .btn-large {
     padding: 1rem 2.5rem;
     font-size: 1.1rem;
@@ -595,13 +607,41 @@ body {
 }
 
 .calculator-wrapper {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: start;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
-.calculator-form,
+.visualization-calculator-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    background: var(--bg-white);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    align-items: stretch;
+}
+
+.calculator-form {
+    background: var(--bg-light);
+    padding: 2rem;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    min-height: 600px;
+}
+
+.calculator-form h3 {
+    margin-top: 0;
+}
+
+.viewer-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 600px;
+}
+
 .calculator-result {
     background: var(--bg-light);
     padding: 2rem;
@@ -1133,11 +1173,22 @@ table tbody tr:hover {
 }
 
 .upload-help {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     background: #fff3cd;
     border-left: 4px solid #ffc107;
     padding: 1.5rem;
     border-radius: 8px;
-    margin-bottom: 2rem;
+}
+
+.upload-help p {
+    margin-bottom: 1rem;
+}
+
+.upload-help ul {
+    margin: 0;
+    padding-left: 1.5rem;
 }
 
 .upload-help p {
@@ -1219,7 +1270,31 @@ table tbody tr:hover {
     font-size: 0.95rem;
 }
 
-.viewer-container {
+.viewer-container.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    background: white;
+    padding: 0;
+    border-radius: 0;
+}
+
+.viewer-container.fullscreen .model-viewer {
+    height: calc(100vh - 60px);
+}
+
+.viewer-container.fullscreen #fullscreenBtn::before {
+    content: '⛵';
+}
+
+body.fullscreen-active {
+    overflow: hidden;
+}
     display: flex;
     flex-direction: column;
     position: relative;
@@ -1267,13 +1342,13 @@ table tbody tr:hover {
 
 .model-viewer {
     width: 100%;
-    height: 400px;
+    flex: 1;
     background: white;
     border-radius: 12px;
     display: none;
     position: relative;
     overflow: hidden;
-    margin-bottom: 1rem;
+    margin-bottom: 0;
     padding: 0;
 }
 
@@ -1336,7 +1411,7 @@ table tbody tr:hover {
 
 .viewer-message {
     width: 100%;
-    height: 400px;
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1345,7 +1420,7 @@ table tbody tr:hover {
     color: var(--text-light);
     font-size: 1.1rem;
     border: 2px dashed var(--border-color);
-    margin-bottom: 1rem;
+    margin-bottom: 0;
 }
 
 .viewer-panel {

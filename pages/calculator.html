@@ -36,16 +36,6 @@
     <section class="file-upload-section">
         <div class="container">
             <h2>Качване на 3D Модел</h2>
-            <div class="upload-help">
-                <p>💡 <strong>Как да работите с визуализатора:</strong></p>
-                <ul>
-                    <li>Качете STL или OBJ файл чрез клик или drag-drop</li>
-                    <li>Модела ще се появи в екрана отляво и автоматично се завърта</li>
-                    <li>Кликнете и влачете мишката, за да завъртите модела</li>
-                    <li>Използвайте скролване за мащабиране</li>
-                    <li>Теглото и цената се изчисляват автоматично</li>
-                </ul>
-            </div>
             <div class="upload-wrapper">
                 <div class="upload-area">
                     <input type="file" id="fileInput" accept=".stl,.obj" hidden>
@@ -56,83 +46,22 @@
                     <div id="fileInfo" class="file-info" style="display: none;">
                         <p><strong>Файл:</strong> <span id="fileName"></span></p>
                         <p><strong>Размер:</strong> <span id="fileSize"></span></p>
-                        <button class="btn btn-secondary" onclick="clearFile()">Смени файл</button>
+                        <div style="display: flex; gap: 1rem;">
+                            <button class="btn btn-secondary" onclick="clearFile()">Смени файл</button>
+                            <button class="btn btn-danger" onclick="removeFile()">Премахни файл</button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="viewer-container">
-                    <div class="viewer-header">
-                        <h3>Визуализация на Модел</h3>
-                        <div class="viewer-controls">
-                            <div class="view-selector">
-                                <button class="btn btn-small" id="viewMenu" onclick="toggleViewMenu()" title="Избери изглед">📐 Изглед</button>
-                                <div id="viewDropdown" class="view-dropdown">
-                                    <button class="view-option" onclick="selectView('front')">Преден (Front)</button>
-                                    <button class="view-option" onclick="selectView('back')">Задния (Back)</button>
-                                    <button class="view-option" onclick="selectView('left')">Ляв (Left)</button>
-                                    <button class="view-option" onclick="selectView('right')">Десен (Right)</button>
-                                    <button class="view-option" onclick="selectView('top')">Горен (Top)</button>
-                                    <button class="view-option" onclick="selectView('bottom')">Долен (Bottom)</button>
-                                </div>
-                            </div>
-                            <button class="btn btn-small" id="rotateBtn" onclick="toggleAutoRotate()" title="Включи/Изключи автоматично въртане">🔄 Авто Завъртане</button>
-                            <button class="btn btn-small" onclick="toggleViewerPanel()">⚙️ Настройки</button>
-                        </div>
-                    </div>
-                    <div id="modelViewer" class="model-viewer"></div>
-                    <div id="viewerMessage" class="viewer-message">
-                        📁 Качете файл за визуализация<br>
-                        <small>Поддържа STL и OBJ формати</small>
-                    </div>
-                    
-                    <!-- Панел за настройки -->
-                    <div id="viewerPanel" class="viewer-panel" style="display: none;">
-                        <h4>Визуални Настройки</h4>
-                        
-                        <div class="settings-group">
-                            <label>Предварени Опции:</label>
-                            <div class="preset-buttons">
-                                <button class="preset-btn" onclick="applyPreset('standard')">Стандартно</button>
-                                <button class="preset-btn" onclick="applyPreset('highcontrast')">Висок контраст</button>
-                                <button class="preset-btn" onclick="applyPreset('metallic')">Метално</button>
-                                <button class="preset-btn" onclick="applyPreset('matte')">Матово</button>
-                            </div>
-                        </div>
-                        
-                        <div class="settings-group">
-                            <label>Цвят на Модел:</label>
-                            <div class="color-buttons">
-                                <button class="color-btn" style="background: #1a1a1a;" onclick="updateModelColor('0x1a1a1a')" title="Черен"></button>
-                                <button class="color-btn" style="background: #333333;" onclick="updateModelColor('0x333333')" title="Тъмносерен"></button>
-                                <button class="color-btn" style="background: #c0c0c0;" onclick="updateModelColor('0xc0c0c0')" title="Сребърен"></button>
-                                <button class="color-btn" style="background: #d4af37;" onclick="updateModelColor('0xd4af37')" title="Золото"></button>
-                                <button class="color-btn" style="background: #ff6b35;" onclick="updateModelColor('0xff6b35')" title="Оранжево"></button>
-                            </div>
-                        </div>
-                        
-                        <div class="settings-group">
-                            <label>Цвят на Фон:</label>
-                            <div class="color-buttons">
-                                <button class="color-btn" style="background: #ffffff;" onclick="updateBackgroundColor('0xffffff')" title="Бяло"></button>
-                                <button class="color-btn" style="background: #f0f0f0;" onclick="updateBackgroundColor('0xf0f0f0')" title="Светлосерен"></button>
-                                <button class="color-btn" style="background: #e0e0e0;" onclick="updateBackgroundColor('0xe0e0e0')" title="Средносерен"></button>
-                                <button class="color-btn" style="background: #87ceeb;" onclick="updateBackgroundColor('0x87ceeb')" title="Светлосин"></button>
-                                <button class="color-btn" style="background: #90ee90;" onclick="updateBackgroundColor('0x90ee90')" title="Светлозелен"></button>
-                            </div>
-                        </div>
-                        
-                        <div class="settings-group">
-                            <label for="lightIntensity">Интензитет на Осветление:</label>
-                            <input type="range" id="lightIntensity" min="0.2" max="2" step="0.1" value="1.2" onchange="updateLightIntensity(this.value)">
-                            <span id="lightValue">120%</span>
-                        </div>
-                        
-                        <div class="settings-group">
-                            <label for="shininess">Блясък:</label>
-                            <input type="range" id="shininess" min="0" max="200" step="10" value="150" onchange="updateShininess(this.value)">
-                            <span id="shininessValue">150</span>
-                        </div>
-                    </div>
+                <div class="upload-help">
+                    <p>💡 <strong>Как да работите с визуализатора:</strong></p>
+                    <ul>
+                        <li>Качете STL или OBJ файл чрез клик или drag-drop</li>
+                        <li>Модела ще се появи в екрана и автоматично се завърта</li>
+                        <li>Кликнете и влачете мишката, за да завъртите модела</li>
+                        <li>Използвайте скролване за мащабиране</li>
+                        <li>Теглото и цената се изчисляват автоматично</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -142,8 +71,10 @@
     <section class="calculator-section">
         <div class="container">
             <div class="calculator-wrapper">
-                <div class="calculator-form">
-                    <h2>Калкулатор на 3D Печат</h2>
+                <div class="visualization-calculator-wrapper">
+                    <!-- Калкулатор отляво -->
+                    <div class="calculator-form">
+                        <h3>Калкулатор на 3D Печат</h3>
                     
                     <div class="form-group">
                         <label for="material">Материал:</label>
@@ -189,10 +120,75 @@
                     </div>
 
                     <button class="btn btn-primary calculate-btn" onclick="calculatePrice()">Изчисли Цена</button>
+                    </div>
+
+                    <!-- Визуализация отдясно -->
+                    <div class="viewer-container">
+                        <div class="viewer-header">
+                            <h3>Визуализация на Модел</h3>
+                            <div class="viewer-controls">
+                                <div class="view-selector">
+                                    <button class="btn btn-small" id="viewMenu" onclick="toggleViewMenu()" title="Избери изглед">📐 Изглед</button>
+                                    <div id="viewDropdown" class="view-dropdown">
+                                        <button class="view-option" onclick="selectView('front')">Преден (Front)</button>
+                                        <button class="view-option" onclick="selectView('back')">Задния (Back)</button>
+                                        <button class="view-option" onclick="selectView('left')">Ляв (Left)</button>
+                                        <button class="view-option" onclick="selectView('right')">Десен (Right)</button>
+                                        <button class="view-option" onclick="selectView('top')">Горен (Top)</button>
+                                        <button class="view-option" onclick="selectView('bottom')">Долен (Bottom)</button>
+                                    </div>
+                                </div>
+                                <button class="btn btn-small" id="rotateBtn" onclick="toggleAutoRotate()" title="Включи/Изключи автоматично въртане">🔄 Авто Завъртане</button>
+                                <button class="btn btn-small" id="fullscreenBtn" onclick="toggleFullscreen()" title="По-голям екран">⛶ Цял екран</button>
+                                <button class="btn btn-small" onclick="toggleViewerPanel()">⚙️ Настройки</button>
+                            </div>
+                        </div>
+                        <div id="modelViewer" class="model-viewer"></div>
+                        <div id="viewerMessage" class="viewer-message">
+                            📁 Качете файл за визуализация<br>
+                            <small>Поддържа STL и OBJ формати</small>
+                        </div>
+                        
+                        <!-- Панел за настройки -->
+                        <div id="viewerPanel" class="viewer-panel" style="display: none;">
+                            <h4>Визуални Настройки</h4>
+                            
+                            <div class="settings-group">
+                                <label>Предварени Опции:</label>
+                                <div class="preset-buttons">
+                                    <button class="preset-btn" onclick="applyPreset('standard')">Стандартно</button>
+                                    <button class="preset-btn" onclick="applyPreset('highcontrast')">Висок контраст</button>
+                                    <button class="preset-btn" onclick="applyPreset('metallic')">Метално</button>
+                                    <button class="preset-btn" onclick="applyPreset('matte')">Матово</button>
+                                </div>
+                            </div>
+                            
+                            <div class="settings-group">
+                                <label for="modelColorPicker">Цвят на Модел:</label>
+                                <div style="display: flex; gap: 1rem; align-items: center;">
+                                    <input type="color" id="modelColorPicker" value="#333333" onchange="updateModelColor(this.value)" style="width: 50px; height: 40px; border: none; border-radius: 6px; cursor: pointer;">
+                                    <input type="text" id="modelColorHex" value="#333333" onchange="updateModelColorHex(this.value)" placeholder="#333333" style="flex: 1; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 6px;">
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="settings-group">
+                                <label for="lightIntensity">Интензитет на Осветление:</label>
+                                <input type="range" id="lightIntensity" min="0.2" max="2" step="0.1" value="1.2" onchange="updateLightIntensity(this.value)">
+                                <span id="lightValue">120%</span>
+                            </div>
+                            
+                            <div class="settings-group">
+                                <label for="shininess">Блясък:</label>
+                                <input type="range" id="shininess" min="0" max="200" step="10" value="150" onchange="updateShininess(this.value)">
+                                <span id="shininessValue">150</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="calculator-result">
-                    <h2>Резултат</h2>
+                    <h3>Резултат</h3>
                     <div class="result-box">
                         <div class="result-item">
                             <span class="label">Цена на Материал:</span>
