@@ -71,7 +71,28 @@ function setCurrentRole(role) {
 function applyRolePermissions(role) {
     document.body.setAttribute('data-role', role);
     console.log(`Текущ режим: ${ROLES[role].name}`);
-    // Тук може да добавиш допълнителна логика за различни пермисии
+    
+    // Обновлява админ панел ако е видим
+    const adminPanel = document.getElementById('adminPanel');
+    if (adminPanel) {
+        adminPanel.style.display = role === 'admin' ? 'block' : 'none';
+    }
+    
+    // Обновлява upload раздел
+    const uploadSection = document.getElementById('uploadSection');
+    if (uploadSection) {
+        uploadSection.style.display = (role === 'user' || role === 'admin') ? 'block' : 'none';
+    }
+    
+    // Обновлява галерия админ функции ако функцията е налична
+    if (typeof initGalleryAdmin === 'function') {
+        initGalleryAdmin();
+    }
+    
+    // Обновлява upload функции ако функцията е налична
+    if (typeof updateUploadVisibility === 'function') {
+        updateUploadVisibility(role);
+    }
 }
 
 // Получи текущата роля
