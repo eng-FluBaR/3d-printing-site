@@ -32,6 +32,93 @@
         </div>
     </section>
 
+    <!-- Качване на 3D Файл -->
+    <section class="file-upload-section">
+        <div class="container">
+            <h2>Качване на 3D Модел</h2>
+            <div class="upload-help">
+                <p>💡 <strong>Как да работите с визуализатора:</strong></p>
+                <ul>
+                    <li>Качете STL или OBJ файл чрез клик или drag-drop</li>
+                    <li>Модела ще се появи в екрана отляво и автоматично се завърта</li>
+                    <li>Кликнете и влачете мишката, за да завъртите модела</li>
+                    <li>Използвайте скролване за мащабиране</li>
+                    <li>Теглото и цената се изчисляват автоматично</li>
+                </ul>
+            </div>
+            <div class="upload-wrapper">
+                <div class="upload-area">
+                    <input type="file" id="fileInput" accept=".stl,.obj" hidden>
+                    <div class="drop-zone" onclick="document.getElementById('fileInput').click()">
+                        <p>📁 Качете STL или OBJ файл</p>
+                        <p class="small">или го преместете тук</p>
+                    </div>
+                    <div id="fileInfo" class="file-info" style="display: none;">
+                        <p><strong>Файл:</strong> <span id="fileName"></span></p>
+                        <p><strong>Размер:</strong> <span id="fileSize"></span></p>
+                        <button class="btn btn-secondary" onclick="clearFile()">Смени файл</button>
+                    </div>
+                </div>
+
+                <div class="viewer-container">
+                    <div class="viewer-header">
+                        <h3>Визуализация на Модел</h3>
+                        <button class="btn btn-small" onclick="toggleViewerPanel()">⚙️ Настройки</button>
+                    </div>
+                    <div id="modelViewer" class="model-viewer"></div>
+                    <div id="viewerMessage" class="viewer-message">
+                        📁 Качете файл за визуализация<br>
+                        <small>Поддържа STL и OBJ формати</small>
+                    </div>
+                    
+                    <!-- Панел за настройки -->
+                    <div id="viewerPanel" class="viewer-panel" style="display: none;">
+                        <h4>Визуални Настройки</h4>
+                        
+                        <div class="settings-group">
+                            <label>Предварени Опции:</label>
+                            <div class="preset-buttons">
+                                <button class="preset-btn" onclick="applyPreset('standard')">Стандартно</button>
+                                <button class="preset-btn" onclick="applyPreset('highcontrast')">Висок контраст</button>
+                                <button class="preset-btn" onclick="applyPreset('metallic')">Метално</button>
+                                <button class="preset-btn" onclick="applyPreset('matte')">Матово</button>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-group">
+                            <label for="modelColor">Цвят на Модел:</label>
+                            <input type="color" id="modelColor" value="#ff9a56" onchange="updateModelColor(this.value)">
+                        </div>
+                        
+                        <div class="settings-group">
+                            <label for="bgColor">Цвят на Фон:</label>
+                            <input type="color" id="bgColor" value="#667eea" onchange="updateBackgroundColor(this.value)">
+                        </div>
+                        
+                        <div class="settings-group">
+                            <label for="lightIntensity">Интензитет на Осветление:</label>
+                            <input type="range" id="lightIntensity" min="0.2" max="2" step="0.1" value="1.0" onchange="updateLightIntensity(this.value)">
+                            <span id="lightValue">100%</span>
+                        </div>
+                        
+                        <div class="settings-group">
+                            <label for="shininess">Блясък:</label>
+                            <input type="range" id="shininess" min="0" max="200" step="10" value="100" onchange="updateShininess(this.value)">
+                            <span id="shininessValue">100</span>
+                        </div>
+                        
+                        <div class="settings-group">
+                            <label>
+                                <input type="checkbox" id="autoRotate" checked onchange="toggleAutoRotate()">
+                                Автоматично въртане
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Калкулатор -->
     <section class="calculator-section">
         <div class="container">
@@ -231,5 +318,8 @@
 
     <script src="../js/calculator.js"></script>
     <script src="../js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="../js/3d-viewer.js"></script>
+    <script src="../js/calculator.js"></script>
 </body>
 </html>
