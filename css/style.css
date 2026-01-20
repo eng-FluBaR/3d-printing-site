@@ -50,6 +50,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 1rem;
 }
 
 .nav-brand h1 {
@@ -71,10 +72,42 @@ body {
     color: var(--secondary-color);
 }
 
+/* Hamburger Menu */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    gap: 0.35rem;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: white;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(10px, 10px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
 .nav-menu {
     display: flex;
     list-style: none;
     gap: 2rem;
+    flex: 1;
 }
 
 .nav-menu a {
@@ -1614,6 +1647,48 @@ table tbody tr:hover {
 
 /* ==================== RESPONSIVE ==================== */
 @media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+
+    .nav-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        flex-direction: column;
+        gap: 0;
+        padding: 1rem 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+
+    .nav-menu.active {
+        max-height: 500px;
+    }
+
+    .nav-menu li {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-menu a {
+        display: block;
+        padding: 1rem;
+        border-bottom: none;
+    }
+
+    .navbar .container {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .role-selector {
+        width: 100%;
+        order: 3;
+    }
+
     .nav-menu {
         gap: 0.5rem;
         font-size: 0.9rem;
@@ -1669,8 +1744,50 @@ table tbody tr:hover {
         padding: 0 10px;
     }
 
+    .hamburger {
+        display: flex;
+    }
+
     .nav-menu {
-        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        flex-direction: column;
+        gap: 0;
+        padding: 1rem 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+
+    .nav-menu.active {
+        max-height: 400px;
+    }
+
+    .nav-menu li {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-menu a {
+        display: block;
+        padding: 1rem;
+        border-bottom: none;
+    }
+
+    .navbar .container {
+        position: relative;
+    }
+
+    .role-selector {
+        width: 100%;
+        order: 3;
+    }
+
+    .role-btn {
+        width: 100%;
+        padding: 0.75rem;
     }
 
     .hero h2 {
