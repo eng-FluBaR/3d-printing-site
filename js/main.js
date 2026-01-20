@@ -1,5 +1,94 @@
 /* ==================== ГЛАВНИ СКРИПТОВЕ ==================== */
 
+// ==================== УПРАВЛЕНИЕ НА РОЛИТЕ ====================
+const ROLES = {
+    visitor: { name: 'Посетител', icon: '👤' },
+    user: { name: 'Потребител', icon: '👨‍💻' },
+    admin: { name: 'Админ', icon: '🔑' }
+};
+
+// Инициализира система на ролите
+function initRoleSystem() {
+    const roleBtn = document.getElementById('roleBtn');
+    const roleDropdown = document.getElementById('roleDropdown');
+    const roleOptions = document.querySelectorAll('.role-option');
+
+    // Зареди запазана роля или постави default
+    const savedRole = localStorage.getItem('userRole') || 'visitor';
+    setCurrentRole(savedRole);
+
+    // Toggle на dropdown
+    if (roleBtn) {
+        roleBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            roleDropdown.classList.toggle('active');
+        });
+    }
+
+    // Обработка на избор на роля
+    roleOptions.forEach(option => {
+        option.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const role = this.dataset.role;
+            setCurrentRole(role);
+            localStorage.setItem('userRole', role);
+            roleDropdown.classList.remove('active');
+            // Обнови страницата ако е нужно
+            applyRolePermissions(role);
+        });
+    });
+
+    // Затвори dropdown при клик навън
+    document.addEventListener('click', function() {
+        roleDropdown.classList.remove('active');
+    });
+}
+
+// Постави текущата роля и обнови UI
+function setCurrentRole(role) {
+    const roleBtn = document.getElementById('roleBtn');
+    const roleOptions = document.querySelectorAll('.role-option');
+
+    // Обнови бутона
+    if (roleBtn) {
+        roleBtn.textContent = `${ROLES[role].icon} ${ROLES[role].name}`;
+    }
+
+    // Обнови активната опция
+    roleOptions.forEach(option => {
+        if (option.dataset.role === role) {
+            option.classList.add('active');
+        } else {
+            option.classList.remove('active');
+        }
+    });
+
+    // Приложи пермисии
+    applyRolePermissions(role);
+}
+
+// Приложи пермисии въз основа на ролята
+function applyRolePermissions(role) {
+    document.body.setAttribute('data-role', role);
+    console.log(`Текущ режим: ${ROLES[role].name}`);
+    // Тук може да добавиш допълнителна логика за различни пермисии
+}
+
+// Получи текущата роля
+function getCurrentRole() {
+    return localStorage.getItem('userRole') || 'visitor';
+}
+
+// Провери дали потребителят има определена роля
+function hasRole(role) {
+    return getCurrentRole() === role;
+}
+
+// Провери дали потребителят има поне една от определените роли
+function hasAnyRole(...roles) {
+    return roles.includes(getCurrentRole());
+}
+
 // Обработка на якорни линкове за плавно скролиране
 document.addEventListener('click', function(e) {
     const link = e.target.closest('a[href*="#"]');
@@ -50,6 +139,9 @@ function filterGallery(category) {
 
 // Инициализира филтърите на галерия
 document.addEventListener('DOMContentLoaded', function() {
+    // Инициализира система на ролите
+    initRoleSystem();
+
     const filterButtons = document.querySelectorAll('.filter-btn');
     filterButtons.forEach(btn => {
         btn.addEventListener('click', function(e) {
