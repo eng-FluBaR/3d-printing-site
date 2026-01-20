@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калкулатор - 3D PrintLab</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>🖨️ 3D PrintLab</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Начало</a></li>
+                <li><a href="services.html">Услуги</a></li>
+                <li><a href="gallery.html">Галерия</a></li>
+                <li><a href="calculator.html" class="active">Калкулатор</a></li>
+                <li><a href="about.html">За Нас</a></li>
+                <li><a href="contact.html">Контакти</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Калкулатор на Цена</h1>
+            <p>Изчислете цената и времето на печат</p>
+        </div>
+    </section>
+
+    <!-- Калкулатор -->
+    <section class="calculator-section">
+        <div class="container">
+            <div class="calculator-wrapper">
+                <div class="calculator-form">
+                    <h2>Калкулатор на 3D Печат</h2>
+                    
+                    <div class="form-group">
+                        <label for="material">Материал:</label>
+                        <select id="material">
+                            <option value="pla" data-price="0.5" data-time="1.2">PLA (0.5 лв/гр, 1.2 часа/100гр)</option>
+                            <option value="abs" data-price="0.6" data-time="1.5">ABS (0.6 лв/гр, 1.5 часа/100гр)</option>
+                            <option value="petg" data-price="0.7" data-time="1.3">PETG (0.7 лв/гр, 1.3 часа/100гр)</option>
+                            <option value="tpu" data-price="1.0" data-time="2.0">TPU Гъвкав (1.0 лв/гр, 2.0 часа/100гр)</option>
+                            <option value="resin" data-price="2.0" data-time="0.5">Смола SLA (2.0 лв/гр, 0.5 часа/100гр)</option>
+                            <option value="nylon" data-price="1.5" data-time="1.8">Найлон SLS (1.5 лв/гр, 1.8 часа/100гр)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="weight">Тегло на модела (грамове):</label>
+                        <input type="number" id="weight" placeholder="Въведете теглото" min="1" max="5000" value="100">
+                        <small>Среден модел: 100-500гр</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="technology">Технология печат:</label>
+                        <select id="technology">
+                            <option value="fdm" data-fee="50">FDM (базова цена 50 лв)</option>
+                            <option value="sla" data-fee="100">SLA (базова цена 100 лв)</option>
+                            <option value="sls" data-fee="150">SLS (базова цена 150 лв)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="postprocessing">Обработка след печат:</label>
+                        <select id="postprocessing">
+                            <option value="none" data-cost="0">Без обработка</option>
+                            <option value="cleaning" data-cost="20">Почистване (20 лв)</option>
+                            <option value="sanding" data-cost="50">Шлифование (50 лв)</option>
+                            <option value="painting" data-cost="80">Боядисване (80 лв)</option>
+                            <option value="complete" data-cost="120">Комплетна обработка (120 лв)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quantity">Количество копия:</label>
+                        <input type="number" id="quantity" placeholder="Брой копия" min="1" max="100" value="1">
+                    </div>
+
+                    <button class="btn btn-primary calculate-btn" onclick="calculatePrice()">Изчисли Цена</button>
+                </div>
+
+                <div class="calculator-result">
+                    <h2>Резултат</h2>
+                    <div class="result-box">
+                        <div class="result-item">
+                            <span class="label">Цена на Материал:</span>
+                            <span class="value" id="materialCost">0 лв</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Базова Цена Печат:</span>
+                            <span class="value" id="printCost">50 лв</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Обработка След:</span>
+                            <span class="value" id="postCost">0 лв</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Количество Фактор:</span>
+                            <span class="value" id="quantityFactor">1 x</span>
+                        </div>
+                        <hr>
+                        <div class="result-item total">
+                            <span class="label">ОБЩА ЦЕНА:</span>
+                            <span class="value" id="totalPrice">170 лв</span>
+                        </div>
+                    </div>
+
+                    <div class="result-box time-info">
+                        <h3>Време Печат</h3>
+                        <div class="result-item">
+                            <span class="label">Време за 1 копие:</span>
+                            <span class="value" id="printTime">0 часа</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Обработка след:</span>
+                            <span class="value">1-2 дни</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">ОБЩО ВРЕМЕ:</span>
+                            <span class="value">1-3 дни</span>
+                        </div>
+                    </div>
+
+                    <div class="result-info">
+                        <p>💡 <strong>Забележка:</strong> Ценовото изчисление е приблизително. За точна оценка, свържете се с нас.</p>
+                        <p>📞 <strong>Свържете се:</strong> +359 2 123 456 или email: info@3dprintlab.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Таблица Цени -->
+    <section class="price-table">
+        <div class="container">
+            <h2>Таблица на Цените</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Материал</th>
+                        <th>Цена/грам</th>
+                        <th>Характеристики</th>
+                        <th>Приложение</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>PLA</td>
+                        <td>0.5 лв</td>
+                        <td>Экологичен, лесен за печат</td>
+                        <td>Начинаещи, прототипи</td>
+                    </tr>
+                    <tr>
+                        <td>ABS</td>
+                        <td>0.6 лв</td>
+                        <td>Мощен, издържлив</td>
+                        <td>Механични части</td>
+                    </tr>
+                    <tr>
+                        <td>PETG</td>
+                        <td>0.7 лв</td>
+                        <td>Баланс между якост и гъвкавост</td>
+                        <td>Функционални части</td>
+                    </tr>
+                    <tr>
+                        <td>TPU</td>
+                        <td>1.0 лв</td>
+                        <td>Гъвкав, еластичен</td>
+                        <td>Украшения, защитни части</td>
+                    </tr>
+                    <tr>
+                        <td>Смола SLA</td>
+                        <td>2.0 лв</td>
+                        <td>Висока детайлност</td>
+                        <td>Художествени работи</td>
+                    </tr>
+                    <tr>
+                        <td>Найлон SLS</td>
+                        <td>1.5 лв</td>
+                        <td>Издържлив, без поддръжка</td>
+                        <td>Комплексни форми</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>3D PrintLab</h4>
+                    <p>Водещ доставчик на 3D печатане и моделиране услуги</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="../index.html">Начало</a></li>
+                        <li><a href="services.html">Услуги</a></li>
+                        <li><a href="gallery.html">Галерия</a></li>
+                        <li><a href="calculator.html">Калкулатор</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Контакти</h4>
+                    <p>📞 +359 2 123 456</p>
+                    <p>📧 info@3dprintlab.com</p>
+                    <p>📍 София, България</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Социални Мрежи</h4>
+                    <div class="social-links">
+                        <a href="#">Facebook</a>
+                        <a href="#">Instagram</a>
+                        <a href="#">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 3D PrintLab. Всички права запазени.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/calculator.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакти - 3D PrintLab</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>🖨️ 3D PrintLab</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Начало</a></li>
+                <li><a href="services.html">Услуги</a></li>
+                <li><a href="gallery.html">Галерия</a></li>
+                <li><a href="calculator.html">Калкулатор</a></li>
+                <li><a href="about.html">За Нас</a></li>
+                <li><a href="contact.html" class="active">Контакти</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Контактирайте Нас</h1>
+            <p>Ние чакаме вашето съобщение</p>
+        </div>
+    </section>
+
+    <!-- Контакти -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <h2>Контактна Информация</h2>
+                    
+                    <div class="contact-item">
+                        <h3>📍 Адрес</h3>
+                        <p>3D PrintLab</p>
+                        <p>ул. Технология №42</p>
+                        <p>1000 София, България</p>
+                    </div>
+
+                    <div class="contact-item">
+                        <h3>📞 Телефон</h3>
+                        <p>+359 2 123 456</p>
+                        <p>+359 87 654 3210</p>
+                    </div>
+
+                    <div class="contact-item">
+                        <h3>📧 Email</h3>
+                        <p>info@3dprintlab.com</p>
+                        <p>support@3dprintlab.com</p>
+                        <p>sales@3dprintlab.com</p>
+                    </div>
+
+                    <div class="contact-item">
+                        <h3>🕐 Работно Време</h3>
+                        <p><strong>Понеделник - Петък:</strong> 09:00 - 18:00</p>
+                        <p><strong>Събота:</strong> 10:00 - 16:00</p>
+                        <p><strong>Неделя:</strong> Затворено</p>
+                    </div>
+
+                    <div class="contact-item">
+                        <h3>🌐 Социални Мрежи</h3>
+                        <div class="social-links">
+                            <a href="https://facebook.com/3dprintlab">Facebook</a>
+                            <a href="https://instagram.com/3dprintlab">Instagram</a>
+                            <a href="https://linkedin.com/company/3dprintlab">LinkedIn</a>
+                            <a href="https://youtube.com/3dprintlab">YouTube</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <h2>Изпратете Съобщение</h2>
+                    <form id="contactForm" onsubmit="handleSubmit(event)">
+                        <div class="form-group">
+                            <label for="name">Име *</label>
+                            <input type="text" id="name" name="name" required placeholder="Вашето име">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required placeholder="Ваш email">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Телефон</label>
+                            <input type="tel" id="phone" name="phone" placeholder="+359 XX XXX XXXX">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">Тема *</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">-- Изберете Тема --</option>
+                                <option value="quote">Запрос за Оценка</option>
+                                <option value="technical">Техническа Помощ</option>
+                                <option value="partnership">Партньорство</option>
+                                <option value="complaint">Оплакване</option>
+                                <option value="other">Други въпроси</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Съобщение *</label>
+                            <textarea id="message" name="message" rows="6" required placeholder="Напишете вашето съобщение..."></textarea>
+                        </div>
+
+                        <div class="form-group checkbox">
+                            <input type="checkbox" id="privacy" name="privacy" required>
+                            <label for="privacy">Съгласен съм с политиката за защита на личните данни</label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Изпрати Съобщение</button>
+                    </form>
+                    <div id="formMessage" class="form-message" style="display:none;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+        <div class="container">
+            <h2>Чести Въпроси (FAQ)</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <h3>Колко време отнема един печат?</h3>
+                    <p>Времето зависи от размера и сложността на модела. Малките предмети отнемат 2-4 часа, по-големите - 1-2 дни.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Какви материали използвате?</h3>
+                    <p>Използваме PLA, ABS, PETG, TPU, смоли и праховете. Всеки материал има своите характеристики и приложения.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Могу ли да кача свой дизайн?</h3>
+                    <p>Абсолютно! Приемаме STL, OBJ, STEP и други 3D формати. Ако нямате модел, нашия екип може да го проектира за вас.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Колко струва един печат?</h3>
+                    <p>Цената зависи от материала, размера и технологията. Използвайте нашия калкулатор за быструю оценку или свържете се с нас.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Предлагате ли доставка?</h3>
+                    <p>Да, предлагаме доставка до цялата България. Можете също да си вземете лично от нашия офис.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Какво е качеството на печатите?</h3>
+                    <p>Нашите принтери имат висока точност. FDM печатите имат слойност 0.1-0.3mm, SLA - 0.025mm точност.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>3D PrintLab</h4>
+                    <p>Водещ доставчик на 3D печатане и моделиране услуги</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="../index.html">Начало</a></li>
+                        <li><a href="services.html">Услуги</a></li>
+                        <li><a href="gallery.html">Галерия</a></li>
+                        <li><a href="calculator.html">Калкулатор</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Контакти</h4>
+                    <p>📞 +359 2 123 456</p>
+                    <p>📧 info@3dprintlab.com</p>
+                    <p>📍 София, България</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Социални Мрежи</h4>
+                    <div class="social-links">
+                        <a href="#">Facebook</a>
+                        <a href="#">Instagram</a>
+                        <a href="#">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 3D PrintLab. Всички права запазени.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Галерия - 3D PrintLab</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>🖨️ 3D PrintLab</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Начало</a></li>
+                <li><a href="services.html">Услуги</a></li>
+                <li><a href="gallery.html" class="active">Галерия</a></li>
+                <li><a href="calculator.html">Калкулатор</a></li>
+                <li><a href="about.html">За Нас</a></li>
+                <li><a href="contact.html">Контакти</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Галерия на Проекти</h1>
+            <p>Вижте някои от нашите най-интересни работи</p>
+        </div>
+    </section>
+
+    <!-- Филтри -->
+    <section class="gallery-filters">
+        <div class="container">
+            <button class="filter-btn active" data-filter="all">Всички</button>
+            <button class="filter-btn" data-filter="mechanical">Механични</button>
+            <button class="filter-btn" data-filter="jewelry">Украшения</button>
+            <button class="filter-btn" data-filter="models">Макети</button>
+            <button class="filter-btn" data-filter="functional">Функционални</button>
+        </div>
+    </section>
+
+    <!-- Галерия -->
+    <section class="gallery-section">
+        <div class="container">
+            <div class="gallery-grid">
+                <!-- Механични проекти -->
+                <div class="gallery-item mechanical" data-category="mechanical">
+                    <div class="gallery-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                    <div class="gallery-info">
+                        <h3>Редуктор за Мотор</h3>
+                        <p>Персонализирана механична част | FDM печат | 24 часа</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item mechanical" data-category="mechanical">
+                    <div class="gallery-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
+                    <div class="gallery-info">
+                        <h3>Зъбни Колелета</h3>
+                        <p>Комплект от 5 колелета | Инженерна пластмаса | Висока прецизност</p>
+                    </div>
+                </div>
+
+                <!-- Украшения -->
+                <div class="gallery-item jewelry" data-category="jewelry">
+                    <div class="gallery-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
+                    <div class="gallery-info">
+                        <h3>Геометрично Огърлице</h3>
+                        <p>Художествено украшение | SLA печат | Полирано</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item jewelry" data-category="jewelry">
+                    <div class="gallery-image" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);"></div>
+                    <div class="gallery-info">
+                        <h3>Тетоважни Колани</h3>
+                        <p>Персонализирана колекция | Флексибилен материал | Цветни</p>
+                    </div>
+                </div>
+
+                <!-- Макети -->
+                <div class="gallery-item models" data-category="models">
+                    <div class="gallery-image" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);"></div>
+                    <div class="gallery-info">
+                        <h3>Архитектурен Макет</h3>
+                        <p>Жилищен комплекс | Мащаб 1:200 | Детайлизиран дизайн</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item models" data-category="models">
+                    <div class="gallery-image" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);"></div>
+                    <div class="gallery-info">
+                        <h3>Индустриален Дизайн</h3>
+                        <p>Преди-производствен макет | 5 итерации | Окончателна версия</p>
+                    </div>
+                </div>
+
+                <!-- Функционални -->
+                <div class="gallery-item functional" data-category="functional">
+                    <div class="gallery-image" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);"></div>
+                    <div class="gallery-info">
+                        <h3>Робот Манипулатор</h3>
+                        <p>Работещ прототип | Множество части | Сглобен</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item functional" data-category="functional">
+                    <div class="gallery-image" style="background: linear-gradient(135deg, #ff9a56 0%, #ff6a88 100%);"></div>
+                    <div class="gallery-info">
+                        <h3>Дрон Органайзер</h3>
+                        <p>Функционален органайзер | Модулна система | Лесна поддръжка</p>
+                    </div>
+                </div>
+
+                <!-- Допълнителни проекти -->
+                <div class="gallery-item mechanical" data-category="mechanical">
+                    <div class="gallery-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                    <div class="gallery-info">
+                        <h3>Микропомпа</h3>
+                        <p>Компактна помпа | Точност 0.1mm | Функционална</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item jewelry" data-category="jewelry">
+                    <div class="gallery-image" style="background: linear-gradient(135deg, #a6c0fe 0%, #f68084 100%);"></div>
+                    <div class="gallery-info">
+                        <h3>Пръстени Колекция</h3>
+                        <p>10 различни дизайна | Смола | Полирани</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item models" data-category="models">
+                    <div class="gallery-image" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);"></div>
+                    <div class="gallery-info">
+                        <h3>Египетски Храм</h3>
+                        <p>Исторически макет | Мащаб 1:300 | Образователен</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item functional" data-category="functional">
+                    <div class="gallery-image" style="background: linear-gradient(135deg, #ff6e7f 0%, #bfe9ff 100%);"></div>
+                    <div class="gallery-info">
+                        <h3>Умна Касичка</h3>
+                        <p>Интерактивна касичка | Arduino интеграция | Работеща</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>3D PrintLab</h4>
+                    <p>Водещ доставчик на 3D печатане и моделиране услуги</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="../index.html">Начало</a></li>
+                        <li><a href="services.html">Услуги</a></li>
+                        <li><a href="gallery.html">Галерия</a></li>
+                        <li><a href="calculator.html">Калкулатор</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Контакти</h4>
+                    <p>📞 +359 2 123 456</p>
+                    <p>📧 info@3dprintlab.com</p>
+                    <p>📍 София, България</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Социални Мрежи</h4>
+                    <div class="social-links">
+                        <a href="#">Facebook</a>
+                        <a href="#">Instagram</a>
+                        <a href="#">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 3D PrintLab. Всички права запазени.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>
