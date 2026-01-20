@@ -63,7 +63,21 @@
                 <div class="viewer-container">
                     <div class="viewer-header">
                         <h3>Визуализация на Модел</h3>
-                        <button class="btn btn-small" onclick="toggleViewerPanel()">⚙️ Настройки</button>
+                        <div class="viewer-controls">
+                            <div class="view-selector">
+                                <button class="btn btn-small" id="viewMenu" onclick="toggleViewMenu()" title="Избери изглед">📐 Изглед</button>
+                                <div id="viewDropdown" class="view-dropdown">
+                                    <button class="view-option" onclick="selectView('front')">Преден (Front)</button>
+                                    <button class="view-option" onclick="selectView('back')">Задния (Back)</button>
+                                    <button class="view-option" onclick="selectView('left')">Ляв (Left)</button>
+                                    <button class="view-option" onclick="selectView('right')">Десен (Right)</button>
+                                    <button class="view-option" onclick="selectView('top')">Горен (Top)</button>
+                                    <button class="view-option" onclick="selectView('bottom')">Долен (Bottom)</button>
+                                </div>
+                            </div>
+                            <button class="btn btn-small" id="rotateBtn" onclick="toggleAutoRotate()" title="Включи/Изключи автоматично въртане">🔄 Авто Завъртане</button>
+                            <button class="btn btn-small" onclick="toggleViewerPanel()">⚙️ Настройки</button>
+                        </div>
                     </div>
                     <div id="modelViewer" class="model-viewer"></div>
                     <div id="viewerMessage" class="viewer-message">
@@ -86,32 +100,37 @@
                         </div>
                         
                         <div class="settings-group">
-                            <label for="modelColor">Цвят на Модел:</label>
-                            <input type="color" id="modelColor" value="#ff9a56" onchange="updateModelColor(this.value)">
+                            <label>Цвят на Модел:</label>
+                            <div class="color-buttons">
+                                <button class="color-btn" style="background: #1a1a1a;" onclick="updateModelColor('0x1a1a1a')" title="Черен"></button>
+                                <button class="color-btn" style="background: #333333;" onclick="updateModelColor('0x333333')" title="Тъмносерен"></button>
+                                <button class="color-btn" style="background: #c0c0c0;" onclick="updateModelColor('0xc0c0c0')" title="Сребърен"></button>
+                                <button class="color-btn" style="background: #d4af37;" onclick="updateModelColor('0xd4af37')" title="Золото"></button>
+                                <button class="color-btn" style="background: #ff6b35;" onclick="updateModelColor('0xff6b35')" title="Оранжево"></button>
+                            </div>
                         </div>
                         
                         <div class="settings-group">
-                            <label for="bgColor">Цвят на Фон:</label>
-                            <input type="color" id="bgColor" value="#667eea" onchange="updateBackgroundColor(this.value)">
+                            <label>Цвят на Фон:</label>
+                            <div class="color-buttons">
+                                <button class="color-btn" style="background: #ffffff;" onclick="updateBackgroundColor('0xffffff')" title="Бяло"></button>
+                                <button class="color-btn" style="background: #f0f0f0;" onclick="updateBackgroundColor('0xf0f0f0')" title="Светлосерен"></button>
+                                <button class="color-btn" style="background: #e0e0e0;" onclick="updateBackgroundColor('0xe0e0e0')" title="Средносерен"></button>
+                                <button class="color-btn" style="background: #87ceeb;" onclick="updateBackgroundColor('0x87ceeb')" title="Светлосин"></button>
+                                <button class="color-btn" style="background: #90ee90;" onclick="updateBackgroundColor('0x90ee90')" title="Светлозелен"></button>
+                            </div>
                         </div>
                         
                         <div class="settings-group">
                             <label for="lightIntensity">Интензитет на Осветление:</label>
-                            <input type="range" id="lightIntensity" min="0.2" max="2" step="0.1" value="1.0" onchange="updateLightIntensity(this.value)">
-                            <span id="lightValue">100%</span>
+                            <input type="range" id="lightIntensity" min="0.2" max="2" step="0.1" value="1.2" onchange="updateLightIntensity(this.value)">
+                            <span id="lightValue">120%</span>
                         </div>
                         
                         <div class="settings-group">
                             <label for="shininess">Блясък:</label>
-                            <input type="range" id="shininess" min="0" max="200" step="10" value="100" onchange="updateShininess(this.value)">
-                            <span id="shininessValue">100</span>
-                        </div>
-                        
-                        <div class="settings-group">
-                            <label>
-                                <input type="checkbox" id="autoRotate" checked onchange="toggleAutoRotate()">
-                                Автоматично въртане
-                            </label>
+                            <input type="range" id="shininess" min="0" max="200" step="10" value="150" onchange="updateShininess(this.value)">
+                            <span id="shininessValue">150</span>
                         </div>
                     </div>
                 </div>

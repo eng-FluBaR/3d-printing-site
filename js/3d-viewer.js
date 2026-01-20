@@ -25,8 +25,9 @@ function initThreeJS() {
 
     // Сцена
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x667eea);
-    scene.fog = new THREE.Fog(0x667eea, 1000, 10);
+    scene.background = new THREE.Color(0xf0f0f0); // Светлосерен фон
+    // Премахнат fog за да няма промяна на контраст при zoom
+    // scene.fog = new THREE.Fog(0xf0f0f0, 500, 5);
 
     // Размери на контейнера
     const width = container.clientWidth || 500;
@@ -34,16 +35,19 @@ function initThreeJS() {
 
     console.log('Създаване на камера и renderer с размер:', width, 'x', height);
 
-    // Камера
-    camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+    // Камера - подобрена за zoom
+    camera = new THREE.PerspectiveCamera(75, width / height, 0.01, 2000); // Намален near plane
     camera.position.set(0, 0, 150);
     camera.lookAt(0, 0, 0);
 
-    // Renderer
-    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    // Renderer - подобрен за качество
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, precision: 'highp' });
     renderer.setSize(width, height);
     renderer.setPixelRatio(window.devicePixelRatio || 1);
     renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFShadowShadowMap;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.2;
     
     // Изчистване на контейнера преди добавяне
     container.innerHTML = '';
@@ -51,22 +55,29 @@ function initThreeJS() {
 
     console.log('Renderer добавен към контейнер');
 
-    // Осветление
-    const light1 = new THREE.DirectionalLight(0xffffff, 1.0);
-    light1.position.set(100, 100, 100);
+    // Осветление - подобрено за металичен вид
+    const light1 = new THREE.DirectionalLight(0xffffff, 1.5); // По-ярко
+    light1.position.set(150, 100, 100);
     light1.castShadow = true;
-    light1.shadow.mapSize.width = 2048;
-    light1.shadow.mapSize.height = 2048;
-    light1.userData.originalIntensity = 1.0; // Запазване на оригиналната интензитет
+    light1.shadow.mapSize.width = 4096;
+    light1.shadow.mapSize.height = 4096;
+    light1.shadow.camera.near = 0.1;
+    light1.shadow.camera.far = 1000;
+    light1.userData.originalIntensity = 1.5;
     scene.add(light1);
 
-    const light2 = new THREE.DirectionalLight(0xffffff, 0.5);
-    light2.position.set(-100, -100, -100);
-    light2.userData.originalIntensity = 0.5;
+    const light2 = new THREE.DirectionalLight(0x6688ff, 0.8); // Син отражение
+    light2.position.set(-150, -100, -100);
+    light2.userData.originalIntensity = 0.8;
     scene.add(light2);
 
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
-    ambientLight.userData.originalIntensity = 0.7;
+    const light3 = new THREE.DirectionalLight(0xffffff, 0.6);
+    light3.position.set(0, 150, 0);
+    light3.userData.originalIntensity = 0.6;
+    scene.add(light3);
+
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.9); // По-яркo ambient
+    ambientLight.userData.originalIntensity = 0.9;
     scene.add(ambientLight);
 
     // Простотна контрола вместо OrbitControls
@@ -86,6 +97,8 @@ function createSimpleControls(camera, domElement) {
         autoRotateSpeed: 2,
         isDragging: false,
         previousMousePosition: { x: 0, y: 0 },
+        minZoom: 30,
+        maxZoom: 500,
         update: function() {
             if (this.autoRotate) {
                 if (currentModel) {
@@ -122,8 +135,17 @@ function createSimpleControls(camera, domElement) {
 
     domElement.addEventListener('wheel', function(e) {
         e.preventDefault();
-        const scale = e.deltaY > 0 ? 1.1 : 0.9;
-        camera.position.multiplyScalar(scale);
+        const zoomSpeed = 1.1;
+        let newZ = camera.position.z;
+        
+        if (e.deltaY > 0) {
+            newZ *= zoomSpeed; // Отдаление
+        } else {
+            newZ /= zoomSpeed; // Приближение
+        }
+        
+        // Ограничаване на zoom
+        camera.position.z = Math.max(controls.minZoom, Math.min(controls.maxZoom, newZ));
     });
 
     return controls;
@@ -266,12 +288,12 @@ function loadSTLFile(arrayBuffer, fileName) {
         }
 
         // Създаване на нов модел със подобрени материали
-        const material = new THREE.MeshPhongMaterial({ 
-            color: 0xff9a56,
-            emissive: 0x333333,
-            shininess: 100,
+        const material = new THREE.MeshStandardMaterial({ 
+            color: 0x333333, // Тъмносерен цвят по подразбиране
+            metalness: 0.9,
+            roughness: 0.1,
             side: THREE.DoubleSide,
-            flatShading: false
+            envMapIntensity: 1.0
         });
         
         modelMaterial = material; // Запазване на материала за последващи промени
@@ -491,12 +513,12 @@ function loadOBJFile(arrayBuffer, fileName) {
             scene.remove(currentModel);
         }
 
-        const material = new THREE.MeshPhongMaterial({
-            color: 0xff9a56,
-            emissive: 0x333333,
-            shininess: 100,
+        const material = new THREE.MeshStandardMaterial({
+            color: 0x333333,
+            metalness: 0.9,
+            roughness: 0.1,
             side: THREE.DoubleSide,
-            flatShading: false
+            envMapIntensity: 1.0
         });
         
         modelMaterial = material; // Запазване на материала за последващи промени
@@ -565,41 +587,40 @@ function toggleViewerPanel() {
 function applyPreset(presetName) {
     const presets = {
         standard: {
-            modelColor: '#ff9a56',
-            bgColor: '#667eea',
-            lightIntensity: 1.0,
-            shininess: 100,
-            emissive: 0x333333
+            modelColor: '0x333333',
+            bgColor: '0xf0f0f0',
+            lightIntensity: 1.2,
+            shininess: 150,
+            metalness: 0.9,
+            roughness: 0.1
         },
         highcontrast: {
-            modelColor: '#ff4444',
-            bgColor: '#ffffff',
-            lightIntensity: 1.5,
-            shininess: 180,
-            emissive: 0x000000
+            modelColor: '0x1a1a1a',
+            bgColor: '0xffffff',
+            lightIntensity: 1.8,
+            shininess: 200,
+            metalness: 1.0,
+            roughness: 0.05
         },
         metallic: {
-            modelColor: '#c0c0c0',
-            bgColor: '#333333',
-            lightIntensity: 1.3,
-            shininess: 200,
-            emissive: 0x1a1a1a
+            modelColor: '0xd4af37',
+            bgColor: '0xf0f0f0',
+            lightIntensity: 1.5,
+            shininess: 180,
+            metalness: 1.0,
+            roughness: 0.08
         },
         matte: {
-            modelColor: '#8b7355',
-            bgColor: '#e8e8e8',
-            lightIntensity: 0.8,
-            shininess: 20,
-            emissive: 0x222222
+            modelColor: '0x8b7355',
+            bgColor: '0xe0e0e0',
+            lightIntensity: 0.9,
+            shininess: 30,
+            metalness: 0.0,
+            roughness: 0.8
         }
     };
 
     const preset = presets[presetName] || presets.standard;
-    
-    document.getElementById('modelColor').value = preset.modelColor;
-    document.getElementById('bgColor').value = preset.bgColor;
-    document.getElementById('lightIntensity').value = preset.lightIntensity;
-    document.getElementById('shininess').value = preset.shininess;
     
     updateLightValue(preset.lightIntensity);
     updateShininessValue(preset.shininess);
@@ -617,25 +638,52 @@ function applyPreset(presetName) {
 }
 
 // Обновяване на цвета на модела
-function updateModelColor(colorHex) {
+function updateModelColor(hexColor) {
     if (!modelMaterial) return;
 
-    const color = new THREE.Color(colorHex);
+    // Конвертиране на формата от строка к обикновено число
+    let colorValue = hexColor;
+    if (typeof hexColor === 'string') {
+        if (hexColor.startsWith('0x')) {
+            colorValue = parseInt(hexColor);
+        } else if (hexColor.startsWith('#')) {
+            colorValue = parseInt(hexColor.replace('#', ''), 16);
+        }
+    }
+
+    const color = new THREE.Color(colorValue);
     modelMaterial.color.set(color);
     
-    // Автоматично коригиране на емисивния цвят на основата на цвета
-    const brightness = (color.r + color.g + color.b) / 3;
-    const emissiveIntensity = Math.floor(brightness * 50);
-    modelMaterial.emissive.set(new THREE.Color(colorHex).multiplyScalar(0.3));
+    // Намаляне на metalness за по-интензивен цвят
+    modelMaterial.metalness = 0.2;
+    modelMaterial.roughness = 0.3;
     
-    console.log('Цвят на модела обновен:', colorHex);
+    // Маркиране на активния бутон
+    document.querySelectorAll('.color-buttons')[0].querySelectorAll('.color-btn').forEach(btn => {
+        btn.classList.remove('active');
+        const style = btn.getAttribute('style');
+        if (style && style.includes(toHexColor(colorValue))) {
+            btn.classList.add('active');
+        }
+    });
+    
+    console.log('Цвят на модела обновен:', hexColor);
 }
 
 // Обновяване на цвета на фона
-function updateBackgroundColor(colorHex) {
+function updateBackgroundColor(hexColor) {
     if (!scene) return;
 
-    const color = new THREE.Color(colorHex);
+    let colorValue = hexColor;
+    if (typeof hexColor === 'string') {
+        if (hexColor.startsWith('0x')) {
+            colorValue = parseInt(hexColor);
+        } else if (hexColor.startsWith('#')) {
+            colorValue = parseInt(hexColor.replace('#', ''), 16);
+        }
+    }
+
+    const color = new THREE.Color(colorValue);
     scene.background.set(color);
     
     // Обновяване на мъгла
@@ -643,7 +691,21 @@ function updateBackgroundColor(colorHex) {
         scene.fog.color.set(color);
     }
     
-    console.log('Цвят на фона обновен:', colorHex);
+    // Маркиране на активния бутон
+    document.querySelectorAll('.color-buttons')[1].querySelectorAll('.color-btn').forEach(btn => {
+        btn.classList.remove('active');
+        const style = btn.getAttribute('style');
+        if (style && style.includes(toHexColor(colorValue))) {
+            btn.classList.add('active');
+        }
+    });
+    
+    console.log('Цвят на фона обновен:', hexColor);
+}
+
+// Помощна функция за конвертиране на число в hex
+function toHexColor(num) {
+    return '#' + num.toString(16).padStart(6, '0');
 }
 
 // Обновяване на интензитета на осветлението
@@ -675,11 +737,14 @@ function updateLightValue(value) {
 function updateShininess(value) {
     if (!modelMaterial) return;
 
-    const shininessValue = parseInt(value);
-    modelMaterial.shininess = shininessValue;
-    updateShininessValue(shininessValue);
+    const roughnessValue = parseInt(value);
+    // Преобразуване на shininess (0-200) в roughness (1-0)
+    modelMaterial.roughness = 1 - (roughnessValue / 200);
+    modelMaterial.metalness = Math.min(1, 0.5 + (roughnessValue / 400));
     
-    console.log('Блясък обновен:', shininessValue);
+    updateShininessValue(roughnessValue);
+    
+    console.log('Блясък обновен:', roughnessValue);
 }
 
 // Обновяване на показване на стойност на блясък
@@ -692,32 +757,41 @@ function updateShininessValue(value) {
 
 // Превключване на автоматична ротация
 function toggleAutoRotate() {
-    const checkbox = document.getElementById('autoRotate');
+    const button = document.getElementById('rotateBtn');
+    
     if (controls) {
-        controls.autoRotate = checkbox ? checkbox.checked : false;
+        controls.autoRotate = !controls.autoRotate;
+        
+        // Промяна на цвета на бутона
+        if (controls.autoRotate) {
+            button.classList.add('active');
+        } else {
+            button.classList.remove('active');
+        }
+        
         console.log('Автоматична ротация:', controls.autoRotate ? 'включена' : 'изключена');
     }
 }
 
 // Пресет визуални настройки
 function resetVisualizationSettings() {
-    const modelColor = document.getElementById('modelColor');
-    const bgColor = document.getElementById('bgColor');
     const lightIntensity = document.getElementById('lightIntensity');
     const shininess = document.getElementById('shininess');
     const autoRotate = document.getElementById('autoRotate');
     
-    if (modelColor) modelColor.value = '#ff9a56';
-    if (bgColor) bgColor.value = '#667eea';
-    if (lightIntensity) lightIntensity.value = 1.0;
-    if (shininess) shininess.value = 100;
+    if (lightIntensity) lightIntensity.value = 1.2;
+    if (shininess) shininess.value = 150;
     if (autoRotate) autoRotate.checked = true;
     
-    updateLightValue(1.0);
-    updateShininessValue(100);
+    updateLightValue(1.2);
+    updateShininessValue(150);
     
     // Премахване на активния класс от всички бутони
     document.querySelectorAll('.preset-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    document.querySelectorAll('.color-btn').forEach(btn => {
         btn.classList.remove('active');
     });
 }
@@ -747,3 +821,85 @@ function clearFile() {
     // Resseting визуални настройки
     resetVisualizationSettings();
 }
+
+// Функции за падащо меню на изглед
+function toggleViewMenu() {
+    const dropdown = document.getElementById('viewDropdown');
+    if (dropdown) {
+        dropdown.classList.toggle('active');
+    }
+}
+
+function selectView(viewName) {
+    animateToView(viewName);
+    // Затворване на падащото меню
+    const dropdown = document.getElementById('viewDropdown');
+    if (dropdown) {
+        dropdown.classList.remove('active');
+    }
+}
+
+function animateToView(viewName) {
+    if (!currentModel) return;
+    
+    let targetRotation = { x: 0, y: 0, z: 0 };
+    
+    if (viewName === 'front') {
+        // Преден изглед - преди нас
+        targetRotation = { x: 0, y: 0, z: 0 };
+    } else if (viewName === 'back') {
+        // Задния изглед
+        targetRotation = { x: 0, y: Math.PI, z: 0 };
+    } else if (viewName === 'left') {
+        // Ляв изглед
+        targetRotation = { x: 0, y: Math.PI / 2, z: 0 };
+    } else if (viewName === 'right') {
+        // Десен изглед
+        targetRotation = { x: 0, y: -Math.PI / 2, z: 0 };
+    } else if (viewName === 'top') {
+        // Горен изглед - отгоре
+        targetRotation = { x: -Math.PI / 2, y: 0, z: 0 };
+    } else if (viewName === 'bottom') {
+        // Долен изглед - отдолу
+        targetRotation = { x: Math.PI / 2, y: 0, z: 0 };
+    }
+    
+    // Гладка ротация
+    const startRotation = {
+        x: currentModel.rotation.x,
+        y: currentModel.rotation.y,
+        z: currentModel.rotation.z
+    };
+    
+    const duration = 600; // мс
+    const startTime = Date.now();
+    
+    const animateRotation = () => {
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        // Еasing function за по-гладка анимация
+        const easeProgress = progress < 0.5 ? 
+            2 * progress * progress : 
+            -1 + (4 - 2 * progress) * progress;
+        
+        currentModel.rotation.x = startRotation.x + (targetRotation.x - startRotation.x) * easeProgress;
+        currentModel.rotation.y = startRotation.y + (targetRotation.y - startRotation.y) * easeProgress;
+        currentModel.rotation.z = startRotation.z + (targetRotation.z - startRotation.z) * easeProgress;
+        
+        if (progress < 1) {
+            requestAnimationFrame(animateRotation);
+        }
+    };
+    
+    animateRotation();
+}
+
+// Затворване на падащото меню при клик вън от него
+document.addEventListener('click', function(event) {
+    const viewDropdown = document.getElementById('viewDropdown');
+    const viewMenu = document.getElementById('viewMenu');
+    if (viewDropdown && viewMenu && !viewDropdown.contains(event.target) && !viewMenu.contains(event.target)) {
+        viewDropdown.classList.remove('active');
+    }
+});

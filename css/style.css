@@ -1237,6 +1237,17 @@ table tbody tr:hover {
     color: var(--text-dark);
 }
 
+.viewer-controls {
+    display: flex;
+    gap: 0.8rem;
+}
+
+.viewer-controls .btn-small.active {
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
 .btn-small {
     padding: 0.5rem 1rem;
     font-size: 0.9rem;
@@ -1257,18 +1268,70 @@ table tbody tr:hover {
 .model-viewer {
     width: 100%;
     height: 400px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: white;
     border-radius: 12px;
     display: none;
     position: relative;
     overflow: hidden;
     margin-bottom: 1rem;
+    padding: 0;
 }
 
 .model-viewer canvas {
     display: block;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+}
+
+/* Падащо меню за изглед */
+.view-selector {
+    position: relative;
+}
+
+.view-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    min-width: 180px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 100;
+    display: none;
+    margin-top: 0.5rem;
+}
+
+.view-dropdown.active {
+    display: block;
+}
+
+.view-option {
+    display: block;
     width: 100%;
-    height: 100%;
+    padding: 0.75rem 1rem;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    transition: all 0.2s ease;
+}
+
+.view-option:first-child {
+    border-radius: 8px 8px 0 0;
+}
+
+.view-option:last-child {
+    border-radius: 0 0 8px 8px;
+}
+
+.view-option:hover {
+    background: var(--bg-light);
+    padding-left: 1.2rem;
+    color: var(--primary-color);
 }
 
 .viewer-message {
@@ -1325,6 +1388,35 @@ table tbody tr:hover {
 
 .settings-group input[type="color"]:hover {
     border-color: var(--primary-color);
+}
+
+.color-buttons {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.8rem;
+    max-width: 300px;
+}
+
+.color-btn {
+    width: 100%;
+    height: 45px;
+    border: 3px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.color-btn:hover {
+    border-color: var(--primary-color);
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.color-btn.active {
+    border-color: var(--secondary-color);
+    border-width: 4px;
+    box-shadow: 0 0 10px rgba(118, 75, 162, 0.5);
 }
 
 .settings-group input[type="range"] {
