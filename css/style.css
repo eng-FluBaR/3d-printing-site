@@ -1,4 +1,8 @@
 /* ==================== ОСНОВНИ СТИЛОВЕ ==================== */
+html {
+    scroll-behavior: smooth;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -203,6 +207,9 @@ body {
     border-top: 4px solid transparent;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     background-clip: padding-box;
+    text-decoration: none;
+    color: inherit;
+    display: block;
 }
 
 .service-card:nth-child(1) {
@@ -432,6 +439,7 @@ body {
     padding: 2rem;
     background: var(--bg-light);
     border-radius: 12px;
+    scroll-margin-top: 120px;
 }
 
 .service-details h2 {

@@ -1,5 +1,28 @@
 /* ==================== ГЛАВНИ СКРИПТОВЕ ==================== */
 
+// Обработка на якорни линкове за плавно скролиране
+document.addEventListener('click', function(e) {
+    const link = e.target.closest('a[href*="#"]');
+    if (link && link.hostname === window.location.hostname) {
+        const hash = link.getAttribute('href');
+        if (hash.includes('#')) {
+            const anchorId = hash.split('#')[1];
+            const targetElement = document.getElementById(anchorId);
+            if (targetElement) {
+                e.preventDefault();
+                // Смени страницата ако е нужно
+                const pathname = hash.split('#')[0];
+                if (pathname && pathname !== window.location.pathname.split('/').pop()) {
+                    window.location.href = hash;
+                } else {
+                    // Скролира до якора на същата страница
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        }
+    }
+});
+
 // Филтриране на галерия
 function filterGallery(category) {
     const items = document.querySelectorAll('.gallery-item');
