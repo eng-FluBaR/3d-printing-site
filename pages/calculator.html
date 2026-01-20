@@ -40,6 +40,97 @@
         </div>
     </section>
 
+    <!-- Админ Панел за Управление на Материали и Цени -->
+    <section id="calculatorAdminPanel" class="admin-panel" style="display: none;">
+        <div class="container">
+            <h2>⚙️ Администраторски Панел - Управление на Материали и Цени</h2>
+            
+            <!-- Управление на материали -->
+            <div class="admin-section">
+                <h3>📝 Управление на Материали</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                    <div class="form-group">
+                        <label>Име на материал:</label>
+                        <input type="text" id="materialName" placeholder="Напр. PLA">
+                    </div>
+                    <div class="form-group">
+                        <label>Цена за грам (лв):</label>
+                        <input type="number" id="materialPrice" placeholder="0.50" step="0.01" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Време печат за 100гр (часа):</label>
+                        <input type="number" id="materialTime" placeholder="1.2" step="0.1" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Уникален ID (напр. pla_001):</label>
+                        <input type="text" id="materialId" placeholder="pla_001">
+                    </div>
+                </div>
+                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                    <button class="btn btn-primary" onclick="addMaterial()">➕ Добави материал</button>
+                    <button class="btn btn-secondary" onclick="clearMaterialForm()">Очисти форма</button>
+                </div>
+                
+                <div style="margin-top: 2rem;">
+                    <h4>Съществуващи материали:</h4>
+                    <div id="materialsList" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                        <!-- Материали ще се попълнят тук -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Управление на базови цени -->
+            <div class="admin-section">
+                <h3>💰 Управление на Базови Цени</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                    <div class="form-group">
+                        <label>FDM технология (базова цена):</label>
+                        <input type="number" id="fdmFee" placeholder="50" step="1" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label>SLA технология (базова цена):</label>
+                        <input type="number" id="slaFee" placeholder="100" step="1" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label>SLS технология (базова цена):</label>
+                        <input type="number" id="slsFee" placeholder="150" step="1" min="0">
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="updateTechnologyFees()" style="margin-top: 1rem;">💾 Запази Цени</button>
+            </div>
+
+            <!-- Управление на обработка -->
+            <div class="admin-section">
+                <h3>🔧 Управление на Обработка След Печат</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                    <div class="form-group">
+                        <label>Тип обработка:</label>
+                        <input type="text" id="processingType" placeholder="Напр. Почистване">
+                    </div>
+                    <div class="form-group">
+                        <label>Цена (лв):</label>
+                        <input type="number" id="processingCost" placeholder="20" step="1" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Уникален ID:</label>
+                        <input type="text" id="processingId" placeholder="cleaning">
+                    </div>
+                </div>
+                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                    <button class="btn btn-primary" onclick="addProcessing()">➕ Добави обработка</button>
+                    <button class="btn btn-secondary" onclick="clearProcessingForm()">Очисти форма</button>
+                </div>
+                
+                <div style="margin-top: 2rem;">
+                    <h4>Съществуваща обработка:</h4>
+                    <div id="processingList" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                        <!-- Обработка ще се попълни тук -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Качване на 3D Файл -->
     <section class="file-upload-section">
         <div class="container">
@@ -343,6 +434,6 @@
     <script src="../js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="../js/3d-viewer.js"></script>
-    <script src="../js/calculator.js"></script>
+    <script src="../js/calculator-admin.js"></script>
 </body>
 </html>
