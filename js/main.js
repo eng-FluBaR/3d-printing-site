@@ -338,4 +338,85 @@ function setupGalleryModal() {
     });
 }
 
+// Зареди избрани проекти на начална страница
+function loadFeaturedProjects() {
+    const gridElement = document.getElementById('featuredProjectsGrid');
+    if (!gridElement) return;
+    
+    const galleryItems = getGalleryItems();
+    
+    if (galleryItems.length === 0) {
+        // Ако няма качени снимки, скрий секцията
+        const section = gridElement.closest('.featured-projects');
+        if (section) {
+            section.style.display = 'none';
+        }
+        return;
+    }
+    
+    // Показ на начални избрани проекти
+    displayRandomProjects();
+    
+    // Ротация на проектите всеки 6 секунди
+    setInterval(rotateProjects, 6000);
+}
+
+// Функция за показване на случайни проекти
+function displayRandomProjects() {
+    const gridElement = document.getElementById('featuredProjectsGrid');
+    if (!gridElement) return;
+    
+    const galleryItems = getGalleryItems();
+    
+    if (galleryItems.length === 0) return;
+    
+    // Избери до 4 случайни различни проекта
+    const shuffled = [...galleryItems].sort(() => Math.random() - 0.5);
+    const selected = shuffled.slice(0, 4);
+    
+    // Добави fade-out анимация преди смяна
+    const cards = gridElement.querySelectorAll('.project-card');
+    cards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+    });
+    
+    // Изчакай анимацията и сменете съдържанието
+    setTimeout(() => {
+        gridElement.innerHTML = '';
+        
+        selected.forEach((item, index) => {
+            const projectCard = document.createElement('div');
+            projectCard.className = 'project-card';
+            projectCard.style.opacity = '0';
+            projectCard.style.transform = 'translateY(20px)';
+            projectCard.innerHTML = `
+                <div class="project-image" style="background-image: url('${item.image}'); background-size: cover; background-position: center;"></div>
+                <h4>${item.title}</h4>
+                <p>${item.description}</p>
+            `;
+            gridElement.appendChild(projectCard);
+            
+            // Анимирай появата на всяка карта със закъснение
+            setTimeout(() => {
+                projectCard.style.transition = 'all 0.6s ease-out';
+                projectCard.style.opacity = '1';
+                projectCard.style.transform = 'translateY(0)';
+            }, index * 100);
+        });
+    }, 300);
+}
+
+// Функция за ротация на проектите
+function rotateProjects() {
+    displayRandomProjects();
+}
+
+// Получава всички снимки от localStorage
+function getGalleryItems() {
+    const stored = localStorage.getItem('galleryItems');
+    return stored ? JSON.parse(stored) : [];
+}
+
 document.addEventListener('DOMContentLoaded', setupGalleryModal);
+document.addEventListener('DOMContentLoaded', loadFeaturedProjects);

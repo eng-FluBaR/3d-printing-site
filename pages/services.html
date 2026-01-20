@@ -11,7 +11,7 @@
     <nav class="navbar">
         <div class="container">
             <div class="nav-brand">
-                <h1>🖨️ 3D PrintLab</h1>
+                <a href="../index.html"><h1>🖨️ 3D PrintLab</h1></a>
             </div>
             <ul class="nav-menu">
                 <li><a href="../index.html">Начало</a></li>
@@ -21,6 +21,14 @@
                 <li><a href="about.html">За Нас</a></li>
                 <li><a href="contact.html">Контакти</a></li>
             </ul>
+            <div class="role-selector">
+                <button class="role-btn" id="roleBtn">👤 Посетител</button>
+                <div class="role-dropdown" id="roleDropdown">
+                    <button data-role="visitor" class="role-option active">👤 Посетител</button>
+                    <button data-role="user" class="role-option">👨‍💻 Потребител</button>
+                    <button data-role="admin" class="role-option">🔑 Админ</button>
+                </div>
+            </div>
         </div>
     </nav>
 
@@ -114,109 +122,6 @@
                         <li>Монтаж и интеграция</li>
                     </ul>
                     <p class="service-price">Начална цена: от 100 лв.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Пакети -->
-    <section class="packages">
-        <div class="container">
-            <h2>Пакети на Услуги</h2>
-            <div class="packages-grid">
-                <div class="package">
-                    <h3>Начинаещ</h3>
-                    <p class="price">500 лв/месец</p>
-                    <ul>
-                        <li>2 печата месечно</li>
-                        <li>Базово моделиране</li>
-                        <li>Имейл поддръжка</li>
-                    </ul>
-                    <button class="btn btn-secondary">Избери</button>
-                </div>
-                <div class="package featured">
-                    <h3>Професионален</h3>
-                    <p class="price">1500 лв/месец</p>
-                    <ul>
-                        <li>10 печата месечно</li>
-                        <li>Неограничено моделиране</li>
-                        <li>Приоритетна поддръжка</li>
-                        <li>Обработка след печат</li>
-                    </ul>
-                    <button class="btn btn-primary">Избери</button>
-                </div>
-                <div class="package">
-                    <h3>Корпоративен</h3>
-                    <p class="price">По договор</p>
-                    <ul>
-                        <li>Неограничени печати</li>
-                        <li>Сканиране включено</li>
-                        <li>24/7 поддръжка</li>
-                        <li>Персонален мениджър</li>
-                    </ul>
-                    <button class="btn btn-secondary">Контакт</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Качване на Снимки - Pouze za User i Admin -->
-    <section id="uploadSection" class="upload-section" style="display: none;">
-        <div class="container">
-            <h2>📤 Качване на Работа</h2>
-            <p class="section-subtitle">Поделете своята работа с нас</p>
-            
-            <div class="upload-form-wrapper">
-                <form id="uploadWorkForm" class="upload-form">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="workTitle">Заглавие на Работата *</label>
-                            <input type="text" id="workTitle" placeholder="Напр. Механична Част" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="workCategory">Категория *</label>
-                            <select id="workCategory" required>
-                                <option value="">Избери категория</option>
-                                <option value="spare-parts">Резервни Части</option>
-                                <option value="cutters">Резци за Сладки</option>
-                                <option value="decorations">Декорации</option>
-                                <option value="toys">Играчки</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="workDescription">Описание на Работата *</label>
-                        <textarea id="workDescription" placeholder="Описание на работата, материали, размер, специални детайли..." rows="4" required></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="workImage">Качване на Снимка *</label>
-                        <div class="file-upload">
-                            <input type="file" id="workImage" accept="image/*" required>
-                            <div class="file-upload-label">
-                                <span class="upload-icon">📷</span>
-                                <p>Натисни или превлачи снимка тук</p>
-                                <small>PNG, JPG до 5MB</small>
-                            </div>
-                        </div>
-                        <div id="previewContainer" class="preview-container" style="display: none;">
-                            <img id="previewImage" alt="Преглед">
-                            <button type="button" class="btn-remove-image" onclick="removeUploadImage()">✕ Премахни</button>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="workAuthor">Вашето Име (опционално)</label>
-                        <input type="text" id="workAuthor" placeholder="Напр. Иван Петров">
-                    </div>
-
-                    <button type="submit" class="btn btn-primary btn-submit">✅ Качи Работата</button>
-                </form>
-
-                <div id="uploadStatus" class="upload-status" style="display: none;">
-                    <h3 id="statusTitle">✓ Успешно качено!</h3>
-                    <p id="statusMessage">Твоята работа е добавена и ще бъде преглеждана скоро.</p>
                 </div>
             </div>
         </div>
