@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D PrintLab - Професионално 3D Печатане и Моделиране</title>
+    <link rel="stylesheet" href="../../styles/main.scss">
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <span class="fs-4">🖨️ 3D PrintLab</span>
+            </a>
+            
+            <button class="navbar-toggler" type="button" id="hamburger" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Меню">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto" id="navMenu">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Начало</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../services/services.html">Услуги</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../gallery/gallery.html">Галерия</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../calculator/calculator.html">Калкулатор</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../about/about.html">За Нас</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../contact/contact.html">Контакти</a>
+                    </li>
+                </ul>
+                <div class="dropdown ms-3">
+                    <button class="btn btn-light btn-sm" id="roleBtn" data-bs-toggle="dropdown" aria-expanded="false">
+                        👤 Посетител
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" id="roleDropdown">
+                        <li><button class="dropdown-item role-option active" data-role="visitor">👤 Посетител</button></li>
+                        <li><button class="dropdown-item role-option" data-role="user">👨‍💻 Потребител</button></li>
+                        <li><button class="dropdown-item role-option" data-role="admin">🔑 Админ</button></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Секция -->
+    <section class="hero-section py-5 text-center text-white">
+        <div class="container">
+            <h2 class="display-4 fw-bold mb-3">3D PrintLab</h2>
+            <p class="lead">Водещ доставчик на 3D печатане, моделиране и цифрово сканиране</p>
+        </div>
+    </section>
+
+    <!-- Основни услуги -->
+    <section class="services-section py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">Нашите Услуги</h2>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 shadow-sm border-0">
+                        <div class="card-body text-center">
+                            <div class="fs-1 mb-3">🖨️</div>
+                            <h5 class="card-title">3D Печатане</h5>
+                            <p class="card-text text-muted">Професионално 3D печатане с различни материали</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 shadow-sm border-0">
+                        <div class="card-body text-center">
+                            <div class="fs-1 mb-3">🎨</div>
+                            <h5 class="card-title">Моделиране</h5>
+                            <p class="card-text text-muted">Цифрово 3D моделиране и дизайн</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 shadow-sm border-0">
+                        <div class="card-body text-center">
+                            <div class="fs-1 mb-3">📱</div>
+                            <h5 class="card-title">Сканиране</h5>
+                            <p class="card-text text-muted">Цифрово 3D сканиране на обекти</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 shadow-sm border-0">
+                        <div class="card-body text-center">
+                            <div class="fs-1 mb-3">✨</div>
+                            <h5 class="card-title">Обработка</h5>
+                            <p class="card-text text-muted">Постпроцесна обработка и покрития</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Секция -->
+    <section class="cta-section py-5 text-white">
+        <div class="container text-center">
+            <h3 class="mb-4">Готови ли сте да начнете?</h3>
+            <p class="lead mb-4">Посетете нашия калкулатор или се свържете с нас за повече информация</p>
+            <div class="d-flex gap-2 justify-content-center flex-wrap">
+                <a href="../calculator/calculator.html" class="btn btn-light btn-lg">Калкулатор</a>
+                <a href="../contact/contact.html" class="btn btn-outline-light btn-lg">Контакти</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <h5>3D PrintLab</h5>
+                    <p class="text-muted">Професионални 3D услуги и решения</p>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5>Бързи Връзки</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../services/services.html" class="text-muted text-decoration-none">Услуги</a></li>
+                        <li><a href="../gallery/gallery.html" class="text-muted text-decoration-none">Галерия</a></li>
+                        <li><a href="../about/about.html" class="text-muted text-decoration-none">За Нас</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5>Контакти</h5>
+                    <p class="text-muted">
+                        📧 info@3dprintlab.bg<br>
+                        📞 +359 2 123 4567
+                    </p>
+                </div>
+            </div>
+            <hr class="border-secondary">
+            <p class="text-center text-muted mb-0">&copy; 2026 3D PrintLab. Всички права запазени.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="../../main.js"></script>
+</body>
+</html>

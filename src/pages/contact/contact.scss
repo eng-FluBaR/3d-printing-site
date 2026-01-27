@@ -1,0 +1,22 @@
+/* Contact Page Specific Styles */
+
+.card {
+    animation: slideInRight 0.6s ease-out;
+    animation-fill-mode: both;
+}
+
+.col-lg-4 .card:nth-child(1) { animation-delay: 0.1s; }
+.col-lg-4 .card:nth-child(2) { animation-delay: 0.2s; }
+.col-lg-4 .card:nth-child(3) { animation-delay: 0.3s; }
+.col-lg-4 .card:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

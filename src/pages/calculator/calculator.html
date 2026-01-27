@@ -4,45 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Калкулатор - 3D PrintLab</title>
-    <link rel="stylesheet" href="../../src/styles/main.scss">
+    <link rel="stylesheet" href="../../styles/main.scss">
 </head>
 <body>
     <!-- Навигация -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-gradient sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand fw-bold" href="../../index.html">
+            <a class="navbar-brand fw-bold" href="../index/index.html">
                 <span class="fs-4">🖨️ 3D PrintLab</span>
             </a>
             
-            <button class="navbar-toggler" type="button" id="hamburger" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Меню">
+            <button class="navbar-toggler" type="button" id="hamburger" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto" id="navMenu">
-                    <li class="nav-item">
-                        <a class="nav-link" href="../../index.html">Начало</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="services.html">Услуги</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="gallery.html">Галерия</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="calculator.html">Калкулатор</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="about.html">За Нас</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Контакти</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="../index/index.html">Начало</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../services/services.html">Услуги</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../gallery/gallery.html">Галерия</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="calculator.html">Калкулатор</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../about/about.html">За Нас</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../contact/contact.html">Контакти</a></li>
                 </ul>
                 <div class="dropdown ms-3">
-                    <button class="btn btn-light btn-sm" id="roleBtn" data-bs-toggle="dropdown" aria-expanded="false">
-                        👤 Посетител
-                    </button>
+                    <button class="btn btn-light btn-sm" id="roleBtn" data-bs-toggle="dropdown">👤 Посетител</button>
                     <ul class="dropdown-menu dropdown-menu-end" id="roleDropdown">
                         <li><button class="dropdown-item role-option active" data-role="visitor">👤 Посетител</button></li>
                         <li><button class="dropdown-item role-option" data-role="user">👨‍💻 Потребител</button></li>
@@ -160,9 +146,52 @@
                         <h4 class="alert-heading">💡 Полезна Информация</h4>
                         <p class="mb-0">
                             Цените са приблизителни и могат да варират в зависимост от сложността на модела и степента на детайлизация.
-                            За точна оценка, моля свържете се с нашия екип. Получавате автоматична отстъпка при поръчка на 5+ брой одни模型.
+                            За точна оценка, моля свържете се с нашия екип.
                         </p>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Форма за Качване на STL -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">Качване на STL Файл</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <div id="uploadArea" class="border-2 border-dashed p-5 text-center rounded" style="cursor: pointer; border-color: #667eea;">
+                                <p class="mb-2">📁 Преместете STL файл тук или щракнете за избор</p>
+                                <input type="file" id="fileInput" accept=".stl,.obj,.fbx" style="display: none;">
+                                <small class="text-muted">Поддържани формати: STL, OBJ, FBX</small>
+                            </div>
+                            <div id="uploadStatus" class="mt-3"></div>
+                            <button id="uploadBtn" class="btn btn-primary w-100 mt-3">Качи Файл</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3D Визуализатор -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">3D Визуализатор</h2>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card shadow-sm">
+                        <div class="card-body p-0">
+                            <div id="modelViewer" style="width: 100%; height: 600px; border-radius: 0.5rem; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);"></div>
+                            <div class="p-3 bg-light">
+                                <p class="mb-0 text-muted text-center">
+                                    💡 Совет: Използвайте мишката за завъртане, скролирайте за увеличаване/намаляване
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -180,9 +209,9 @@
                 <div class="col-md-4 mb-3">
                     <h5>Бързи Връзки</h5>
                     <ul class="list-unstyled">
-                        <li><a href="services.html" class="text-muted text-decoration-none">Услуги</a></li>
-                        <li><a href="gallery.html" class="text-muted text-decoration-none">Галерия</a></li>
-                        <li><a href="about.html" class="text-muted text-decoration-none">За Нас</a></li>
+                        <li><a href="../services/services.html" class="text-muted text-decoration-none">Услуги</a></li>
+                        <li><a href="../gallery/gallery.html" class="text-muted text-decoration-none">Галерия</a></li>
+                        <li><a href="../about/about.html" class="text-muted text-decoration-none">За Нас</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 mb-3">
@@ -198,6 +227,6 @@
         </div>
     </footer>
 
-    <script type="module" src="../../src/main.js"></script>
+    <script type="module" src="../../main.js"></script>
 </body>
 </html>
