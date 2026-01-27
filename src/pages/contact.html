@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакти - 3D PrintLab</title>
+    <link rel="stylesheet" href="../../src/styles/main.scss">
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="../../index.html">
+                <span class="fs-4">🖨️ 3D PrintLab</span>
+            </a>
+            
+            <button class="navbar-toggler" type="button" id="hamburger" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto" id="navMenu">
+                    <li class="nav-item"><a class="nav-link" href="../../index.html">Начало</a></li>
+                    <li class="nav-item"><a class="nav-link" href="services.html">Услуги</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gallery.html">Галерия</a></li>
+                    <li class="nav-item"><a class="nav-link" href="calculator.html">Калкулатор</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">За Нас</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="contact.html">Контакти</a></li>
+                </ul>
+                <div class="dropdown ms-3">
+                    <button class="btn btn-light btn-sm" id="roleBtn" data-bs-toggle="dropdown">👤 Посетител</button>
+                    <ul class="dropdown-menu dropdown-menu-end" id="roleDropdown">
+                        <li><button class="dropdown-item role-option active" data-role="visitor">👤 Посетител</button></li>
+                        <li><button class="dropdown-item role-option" data-role="user">👨‍💻 Потребител</button></li>
+                        <li><button class="dropdown-item role-option" data-role="admin">🔑 Админ</button></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="hero-section py-5 text-center text-white">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-3">Контактирайте Нас</h1>
+            <p class="lead">Готови сме да помогнем на вашия проект</p>
+        </div>
+    </section>
+
+    <!-- Контакти -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row g-4">
+                <!-- Формуляр -->
+                <div class="col-lg-8">
+                    <div class="calculator-container">
+                        <h3 class="mb-4">Изпратете Съобщение</h3>
+                        <form id="contactForm">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Име</label>
+                                <input type="text" class="form-control" id="name" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Телефон</label>
+                                <input type="tel" class="form-control" id="phone">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="subject" class="form-label">Тема</label>
+                                <input type="text" class="form-control" id="subject" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Съобщение</label>
+                                <textarea class="form-control" id="message" rows="5" required></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-lg w-100">Изпрати</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Контактна информация -->
+                <div class="col-lg-4">
+                    <h3 class="mb-4">Информация</h3>
+
+                    <div class="card border-0 shadow-sm mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">📍 Локация</h5>
+                            <p class="card-text text-muted">
+                                ул. Технологична 42<br>
+                                1113 София<br>
+                                България
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card border-0 shadow-sm mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">📧 Email</h5>
+                            <p class="card-text">
+                                <a href="mailto:info@3dprintlab.bg" class="text-decoration-none">info@3dprintlab.bg</a><br>
+                                <a href="mailto:support@3dprintlab.bg" class="text-decoration-none">support@3dprintlab.bg</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card border-0 shadow-sm mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">📞 Телефон</h5>
+                            <p class="card-text">
+                                <a href="tel:+359212345678" class="text-decoration-none">+359 2 123 456 78</a><br>
+                                <a href="tel:+359879876543" class="text-decoration-none">+359 87 987 654 3</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">⏰ Работно време</h5>
+                            <p class="card-text text-muted">
+                                Пн-Пт: 09:00 - 18:00<br>
+                                Сб-Нд: Затворено
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <h5>3D PrintLab</h5>
+                    <p class="text-muted">Професионални 3D услуги и решения</p>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5>Бързи Връзки</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="services.html" class="text-muted text-decoration-none">Услуги</a></li>
+                        <li><a href="gallery.html" class="text-muted text-decoration-none">Галерия</a></li>
+                        <li><a href="about.html" class="text-muted text-decoration-none">За Нас</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5>Контакти</h5>
+                    <p class="text-muted">
+                        📧 info@3dprintlab.bg<br>
+                        📞 +359 2 123 4567
+                    </p>
+                </div>
+            </div>
+            <hr class="border-secondary">
+            <p class="text-center text-muted mb-0">&copy; 2026 3D PrintLab. Всички права запазени.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="../../src/main.js"></script>
+</body>
+</html>

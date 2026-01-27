@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калкулатор - 3D PrintLab</title>
+    <link rel="stylesheet" href="../../src/styles/main.scss">
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="../../index.html">
+                <span class="fs-4">🖨️ 3D PrintLab</span>
+            </a>
+            
+            <button class="navbar-toggler" type="button" id="hamburger" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Меню">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto" id="navMenu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.html">Начало</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="services.html">Услуги</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gallery.html">Галерия</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="calculator.html">Калкулатор</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">За Нас</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Контакти</a>
+                    </li>
+                </ul>
+                <div class="dropdown ms-3">
+                    <button class="btn btn-light btn-sm" id="roleBtn" data-bs-toggle="dropdown" aria-expanded="false">
+                        👤 Посетител
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" id="roleDropdown">
+                        <li><button class="dropdown-item role-option active" data-role="visitor">👤 Посетител</button></li>
+                        <li><button class="dropdown-item role-option" data-role="user">👨‍💻 Потребител</button></li>
+                        <li><button class="dropdown-item role-option" data-role="admin">🔑 Админ</button></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="hero-section py-5 text-center text-white">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-3">Калкулатор за Цена</h1>
+            <p class="lead">Изчислете цената и времето за вашия 3D печат</p>
+        </div>
+    </section>
+
+    <!-- Калкулатор -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row g-4">
+                <!-- Форма -->
+                <div class="col-lg-6">
+                    <div class="calculator-container">
+                        <h3 class="mb-4">Параметри на Печата</h3>
+                        
+                        <div class="mb-3">
+                            <label for="material" class="form-label">Материал</label>
+                            <select class="form-select" id="material">
+                                <option selected data-price="0.05" data-time="2">PLA (0.05 лв/г, 2 часа/100г)</option>
+                                <option data-price="0.08" data-time="2.5">ABS (0.08 лв/г, 2.5 часа/100г)</option>
+                                <option data-price="0.12" data-time="3">PETG (0.12 лв/г, 3 часа/100г)</option>
+                                <option data-price="0.15" data-time="4">Флексибилен (0.15 лв/г, 4 часа/100г)</option>
+                                <option data-price="0.25" data-time="5">Нейлон (0.25 лв/г, 5 часа/100г)</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="weight" class="form-label">Тегло (грамове)</label>
+                            <input type="number" class="form-control" id="weight" value="100" min="1" max="5000">
+                            <small class="form-text text-muted">Минимум: 1г, Максимум: 5000г</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="technology" class="form-label">Технология на Печат</label>
+                            <select class="form-select" id="technology">
+                                <option selected data-fee="5">FDM (5 лв)</option>
+                                <option data-fee="15">SLA (15 лв)</option>
+                                <option data-fee="25">SLS (25 лв)</option>
+                                <option data-fee="20">PolyJet (20 лв)</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="postprocessing" class="form-label">Постпроцесна Обработка</label>
+                            <select class="form-select" id="postprocessing">
+                                <option selected data-cost="0">Без обработка (0 лв)</option>
+                                <option data-cost="10">Боядисване (10 лв)</option>
+                                <option data-cost="15">Полиране (15 лв)</option>
+                                <option data-cost="25">Комбинирано (25 лв)</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="quantity" class="form-label">Количество</label>
+                            <input type="number" class="form-control" id="quantity" value="1" min="1" max="100">
+                            <small class="form-text text-muted">Получавате отстъпка над 5 броя</small>
+                        </div>
+
+                        <button class="btn btn-primary btn-lg w-100" onclick="document.getElementById('materialCost').closest('.row').scrollIntoView({behavior: 'smooth'})">Показване на Резултати</button>
+                    </div>
+                </div>
+
+                <!-- Резултати -->
+                <div class="col-lg-6">
+                    <h3 class="mb-4">Резултати</h3>
+                    
+                    <div class="result-card">
+                        <div class="result-label">Цена на Материал</div>
+                        <div class="result-value" id="materialCost">5.00 лв</div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-label">Цена на Печат</div>
+                        <div class="result-value" id="printCost">5.00 лв</div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-label">Цена на Обработка</div>
+                        <div class="result-value" id="postCost">0.00 лв</div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-label">Количество</div>
+                        <div class="result-value" id="quantityFactor">1 x</div>
+                    </div>
+
+                    <div class="result-card" style="border-left: 4px solid #f093fb; background: linear-gradient(135deg, rgba(240, 147, 251, 0.1) 0%, rgba(102, 126, 234, 0.1) 100%);">
+                        <div class="result-label">ОБЩА ЦЕНА</div>
+                        <div class="result-value" style="color: #f093fb;" id="totalPrice">10.00 лв</div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-label">Приблизително Време за Печат</div>
+                        <div class="result-value" style="color: #667eea;" id="printTime">2.0 часа</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Информационна Секция -->
+            <div class="row mt-5">
+                <div class="col-lg-12">
+                    <div class="alert alert-info alert-dismissible fade show" role="alert">
+                        <h4 class="alert-heading">💡 Полезна Информация</h4>
+                        <p class="mb-0">
+                            Цените са приблизителни и могат да варират в зависимост от сложността на модела и степента на детайлизация.
+                            За точна оценка, моля свържете се с нашия екип. Получавате автоматична отстъпка при поръчка на 5+ брой одни模型.
+                        </p>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <h5>3D PrintLab</h5>
+                    <p class="text-muted">Професионални 3D услуги и решения</p>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5>Бързи Връзки</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="services.html" class="text-muted text-decoration-none">Услуги</a></li>
+                        <li><a href="gallery.html" class="text-muted text-decoration-none">Галерия</a></li>
+                        <li><a href="about.html" class="text-muted text-decoration-none">За Нас</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5>Контакти</h5>
+                    <p class="text-muted">
+                        📧 info@3dprintlab.bg<br>
+                        📞 +359 2 123 4567
+                    </p>
+                </div>
+            </div>
+            <hr class="border-secondary">
+            <p class="text-center text-muted mb-0">&copy; 2026 3D PrintLab. Всички права запазени.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="../../src/main.js"></script>
+</body>
+</html>

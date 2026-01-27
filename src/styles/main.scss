@@ -1,0 +1,435 @@
+/**
+ * Main SCSS - Главни стилове с Bootstrap интеграция
+ */
+
+/* ==================== BOOTSTRAP IMPORT ==================== */
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/variables-dark";
+@import "../../node_modules/bootstrap/scss/mixins";
+@import "../../node_modules/bootstrap/scss/root";
+@import "../../node_modules/bootstrap/scss/reboot";
+@import "../../node_modules/bootstrap/scss/type";
+@import "../../node_modules/bootstrap/scss/images";
+@import "../../node_modules/bootstrap/scss/containers";
+@import "../../node_modules/bootstrap/scss/grid";
+@import "../../node_modules/bootstrap/scss/tables";
+@import "../../node_modules/bootstrap/scss/forms";
+@import "../../node_modules/bootstrap/scss/buttons";
+@import "../../node_modules/bootstrap/scss/transitions";
+@import "../../node_modules/bootstrap/scss/dropdown";
+@import "../../node_modules/bootstrap/scss/button-group";
+@import "../../node_modules/bootstrap/scss/nav";
+@import "../../node_modules/bootstrap/scss/navbar";
+@import "../../node_modules/bootstrap/scss/card";
+@import "../../node_modules/bootstrap/scss/accordion";
+@import "../../node_modules/bootstrap/scss/breadcrumb";
+@import "../../node_modules/bootstrap/scss/pagination";
+@import "../../node_modules/bootstrap/scss/badge";
+@import "../../node_modules/bootstrap/scss/alert";
+@import "../../node_modules/bootstrap/scss/progress";
+@import "../../node_modules/bootstrap/scss/list-group";
+@import "../../node_modules/bootstrap/scss/close";
+@import "../../node_modules/bootstrap/scss/toasts";
+@import "../../node_modules/bootstrap/scss/modal";
+@import "../../node_modules/bootstrap/scss/tooltip";
+@import "../../node_modules/bootstrap/scss/popover";
+@import "../../node_modules/bootstrap/scss/carousel";
+@import "../../node_modules/bootstrap/scss/spinners";
+@import "../../node_modules/bootstrap/scss/offcanvas";
+@import "../../node_modules/bootstrap/scss/placeholders";
+@import "../../node_modules/bootstrap/scss/helpers";
+@import "../../node_modules/bootstrap/scss/utilities/api";
+
+/* ==================== CUSTOM THEME VARIABLES ==================== */
+$primary-gradient-start: #667eea;
+$primary-gradient-end: #764ba2;
+$accent-color: #f093fb;
+$text-dark: #1a202c;
+$text-light: #718096;
+$bg-light-custom: #f7fafc;
+
+/* ==================== CUSTOM STYLES ==================== */
+
+/* Общи стилове */
+:root {
+    --primary-color: #667eea;
+    --secondary-color: #764ba2;
+    --accent-color: #f093fb;
+    --text-dark: #1a202c;
+    --text-light: #718096;
+    --bg-light: #f7fafc;
+    --bg-white: #ffffff;
+    --border-color: #e2e8f0;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: $text-dark;
+    background-color: white;
+    line-height: 1.6;
+}
+
+/* ==================== НАВИГАЦИЯ ==================== */
+.navbar {
+    background: linear-gradient(135deg, $primary-gradient-start 0%, $primary-gradient-end 100%) !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-bottom: 3px solid $accent-color;
+
+    .navbar-brand {
+        font-size: 1.5rem;
+        transition: transform 0.3s ease;
+
+        &:hover {
+            transform: scale(1.05);
+        }
+    }
+
+    .nav-link {
+        color: rgba(255, 255, 255, 0.9) !important;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        position: relative;
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: $accent-color;
+            transition: width 0.3s ease;
+        }
+
+        &:hover,
+        &.active {
+            color: white !important;
+
+            &::after {
+                width: 100%;
+            }
+        }
+    }
+
+    .navbar-toggler {
+        border-color: rgba(255, 255, 255, 0.5);
+
+        &:focus {
+            box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
+        }
+    }
+}
+
+/* ==================== HERO СЕКЦИЯ ==================== */
+.hero-section {
+    background: linear-gradient(135deg, $primary-gradient-start 0%, $primary-gradient-end 100%);
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(240, 147, 251, 0.1) 0%, transparent 70%);
+        animation: float 20s infinite;
+    }
+
+    h2 {
+        font-size: 3.5rem;
+        font-weight: 800;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        position: relative;
+        z-index: 1;
+    }
+
+    .lead {
+        font-size: 1.5rem;
+        opacity: 0.95;
+        position: relative;
+        z-index: 1;
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(50px, 50px);
+    }
+}
+
+/* ==================== УСЛУГИ СЕКЦИЯ ==================== */
+.services-section {
+    .card {
+        transition: all 0.3s ease;
+        border-radius: 12px;
+        overflow: hidden;
+
+        &:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15) !important;
+
+            .card-body {
+                background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            }
+        }
+
+        .fs-1 {
+            animation: bounce 2s infinite;
+        }
+
+        &:nth-child(1) .fs-1 {
+            animation-delay: 0s;
+        }
+
+        &:nth-child(2) .fs-1 {
+            animation-delay: 0.2s;
+        }
+
+        &:nth-child(3) .fs-1 {
+            animation-delay: 0.4s;
+        }
+
+        &:nth-child(4) .fs-1 {
+            animation-delay: 0.6s;
+        }
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* ==================== CTA СЕКЦИЯ ==================== */
+.cta-section {
+    background: linear-gradient(135deg, $primary-gradient-start 0%, $primary-gradient-end 100%);
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(240, 147, 251, 0.1) 0%, transparent 70%);
+    }
+
+    > * {
+        position: relative;
+        z-index: 1;
+    }
+
+    .btn {
+        padding: 12px 32px;
+        font-weight: 600;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+
+        &:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+    }
+}
+
+/* ==================== FOOTER ==================== */
+.footer {
+    background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+    border-top: 3px solid $accent-color;
+
+    h5 {
+        color: white;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    a {
+        transition: color 0.3s ease;
+
+        &:hover {
+            color: $accent-color !important;
+        }
+    }
+}
+
+/* ==================== КАЛКУЛАТОР ==================== */
+.calculator-container {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+    border-radius: 12px;
+    padding: 2rem;
+    border: 1px solid rgba(102, 126, 234, 0.2);
+
+    .form-label {
+        font-weight: 600;
+        color: $text-dark;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-control, .form-select {
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 0.75rem;
+        transition: all 0.3s ease;
+
+        &:focus {
+            border-color: $primary-gradient-start;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+    }
+
+    .btn {
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+
+        &:hover {
+            transform: translateY(-2px);
+        }
+    }
+}
+
+.result-card {
+    background: white;
+    border-left: 4px solid $primary-gradient-start;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    .result-label {
+        font-size: 0.9rem;
+        color: $text-light;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .result-value {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: $primary-gradient-start;
+        margin: 0.5rem 0;
+    }
+}
+
+/* ==================== 3D VIEWER ==================== */
+#modelViewer {
+    width: 100%;
+    height: 500px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+
+    @media (max-width: 768px) {
+        height: 300px;
+    }
+}
+
+/* ==================== РОЛИ И ADMIN ФУНКЦИИ ==================== */
+.role-visitor {
+    .admin-section {
+        display: none;
+    }
+}
+
+.role-user {
+    .admin-section {
+        display: none;
+    }
+}
+
+.role-admin {
+    .admin-section {
+        display: block;
+    }
+
+    .admin-badge {
+        position: relative;
+
+        &::after {
+            content: '🔑 ADMIN';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: $accent-color;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+    }
+}
+
+/* ==================== UTIL СТИЛОВЕ ==================== */
+.bg-gradient {
+    background: linear-gradient(135deg, $primary-gradient-start 0%, $primary-gradient-end 100%) !important;
+}
+
+.shadow-sm {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+}
+
+.shadow {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+}
+
+.shadow-lg {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+    .hero-section {
+        h2 {
+            font-size: 2.5rem;
+        }
+
+        .lead {
+            font-size: 1.1rem;
+        }
+    }
+
+    .services-section {
+        .row {
+            g: 2;
+        }
+    }
+}
+
+/* ==================== PRINT STYLES ==================== */
+@media print {
+    .navbar,
+    .footer {
+        display: none;
+    }
+
+    .container {
+        max-width: 100%;
+    }
+}
